@@ -16,7 +16,7 @@ all three software should be linked into your bashrc or in your bin
 
 ## To do:
 
-** FILL THIS README **
+**FILL THIS README**
 
 Some details:
 
