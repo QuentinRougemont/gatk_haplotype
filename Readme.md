@@ -12,11 +12,11 @@ simple pipeline to call haplotypes from whole genome sequencing data
 
 **Samtools** software available [here](http://www.htslib.org/)
 
-all three software should be in your bashrc of bin/
+all three software should be linked into your bashrc or in your bin
 
-##  To do:
+## To do:
 
-** FILL THIS README ***
+** FILL THIS README **
 
 Some details:
 
