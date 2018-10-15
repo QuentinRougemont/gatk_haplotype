@@ -22,5 +22,6 @@ Some details:
 
 first check if your bam(s) are consistent for use with gatk. If not they 
 might need to have a read group and to be indexed. See the first and 
-second scripts in `00-scripts/` 
+second scripts in `00-scripts/`
+also very that you have marked (or remove ) duplicate with picard or samtools
 Then you should be able to run `gatk`.
