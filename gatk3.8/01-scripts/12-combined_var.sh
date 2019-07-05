@@ -35,15 +35,13 @@ then
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
 fi
-REF="/home/qurou/14.epic4/10.WGS/02.align_outgroup/wgs_sample_preparation_coho/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
-GATK="/home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar"
 
-#ROAD="/home/qurou/14.epic4/10.WGS/gatk_workflow/99.test_pipeline_eric"
-ROAD="/home/qurou/14.epic4/10.WGS/02.align_outgroup/wgs_sample_preparation_coho"
+ROAD=$(pwd)
+GATK="/home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar"
+REF="${ROAD}/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta" 
 
 #echo $file
 ################## run gatk ########################################
-#gatk --java-options "-Xmx57G" \
 java -jar "$GATK" \
 	-T CombineVariants \
         -R "$REF" \
