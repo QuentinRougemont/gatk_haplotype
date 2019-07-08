@@ -6,6 +6,10 @@ simple pipeline to call haplotypes from whole genome sequencing data
 
 ## Dependencies:
 
+**bwa** software avialble [here](https://sourceforge.net/projects/bio-bwa/files/)
+
+**trimmomatic** software available [here](http://www.usadellab.org/cms/?page=trimmomatic)
+
 **gatk** software available [here](https://software.broadinstitute.org/gatk/)
 
 **picard** tools avaible [here](https://broadinstitute.github.io/picard/)
@@ -18,10 +22,17 @@ all three software should be linked into your bashrc or in your bin
 
 **FILL THIS README**
 
-Some details:
+ * 1 trimm the data (trimmomatic or fastp)  
+ * 2 align, clean sort, index)
+ * 3 remove duplicated
+ * 4 created dict
+ * 5 realign indels
+ * 6 (Recalibrate Base Quality Score from a reference set or using same data with very stringent filtering)
+ * 7 Generate GVCF (run haplotype caller)
+ * 8 Genotype all individuals
+ * 9 Selects SNPs/Indels/
+ * 10 Filters variants (quality, depth, etc) 
 
-first check if your bam(s) are consistent for use with gatk. If not they 
-might need to have a read group and to be indexed. See the first and 
-second scripts in `00-scripts/`
-also very that you have marked (or remove ) duplicate with picard or samtools
-Then you should be able to run `gatk`.
+
+Some details:
+To FILL
