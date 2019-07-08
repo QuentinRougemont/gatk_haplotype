@@ -12,6 +12,8 @@
 # Move to directory where job was submitted
 cd $SLURM_SUBMIT_DIR
 
+#THESE TWO STEPS BELOWs ARE NO LONGER NECESARRY WITH HaplotyCaller but requirer with UnifiedGenotyper
+
 bam=$1
 if [ $# -eq 0 ]
 then
@@ -37,6 +39,17 @@ LOG_FOLDER="99_log_files"
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Realign around target previously identified
+for file in "$bam" 
+do
+java -Xmx8g -jar $GATK\
+        -T RealignerTargetCreator \
+	-nt 16 \
+        -R "$GENOMEFOLDER"/"$GENOME" \
+        -I "$file" \
+        -o "${file%.dedup.bam}".intervals
+	-log "${file%.dedup.bam}".log 
+done
+
 for file in "$bam"
 do
     java -jar $GATK \

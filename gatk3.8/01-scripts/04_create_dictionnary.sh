@@ -15,7 +15,7 @@ cd $SLURM_SUBMIT_DIR
 # Global variables
 CSD="/prg/picard-tools/1.119/CreateSequenceDictionary.jar"
 GENOMEFOLDER="03_genome"
-GENOME="okis.genome.allpaths_v52488.2PE_30X_3MP_10X_15X_15X.pbjelly_all_pacbio.scaffolds_500bp.fasta"
+GENOME="genome.fasta"
 DICT="$GENOMEFOLDER"/"${GENOME%.fasta}".dict
 
 # Load needed modules

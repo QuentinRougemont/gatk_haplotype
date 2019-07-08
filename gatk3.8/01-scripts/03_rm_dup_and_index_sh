@@ -55,7 +55,6 @@ do
 	TMP_DIR=./tmp
 done
 
-
 BAMINDEX="/prg/picard-tools/1.119/BuildBamIndex.jar"
 for file in "$bam" ; 
 do

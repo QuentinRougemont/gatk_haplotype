@@ -23,10 +23,10 @@ all three software should be linked into your bashrc or in your bin
 **FILL THIS README**
 
  * 1 trimm the data (trimmomatic or fastp)  
- * 2 align, clean sort, index)
- * 3 remove duplicated
- * 4 created dict
- * 5 realign indels
+ * 2 align, clean sort, index (bwa, samtools)
+ * 3 remove duplicated (picard)
+ * 4 created dict (samtools, java)
+ * 5 realign indels (gatk)
  * 6 (Recalibrate Base Quality Score from a reference set or using same data with very stringent filtering)
  * 7 Generate GVCF (run haplotype caller)
  * 8 Genotype all individuals
