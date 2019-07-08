@@ -14,15 +14,21 @@ cd $SLURM_SUBMIT_DIR
 
 # Global variables
 GENOMEFOLDER="03_genome"
-GENOME="okis.genome.allpaths_v52488.2PE_30X_3MP_10X_15X_15X.pbjelly_all_pacbio.scaffolds_500bp.fasta"
-RAWDATAFOLDER="05_trimmed/file3"
+GENOME="genome.fasta"
+RAWDATAFOLDER="05_trimmed/file1" #each folder contain a bam, run all bam in parallel
 ALIGNEDFOLDER="06_aligned"
 NCPU=$1
+#data were cleaned with fastp
 
 # Test if user specified a number of CPUs
 if [[ -z "$NCPU" ]]
 then
     NCPU=4
+fi
+if [ -d "$ALIGNEDPFOLDER" ]
+then
+    echo "creating out-dir"
+    mkdir "$ALIGNEPFOLDER"
 fi
 
 # Load needed modules

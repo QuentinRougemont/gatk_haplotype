@@ -24,8 +24,13 @@ fi
 MARKDUPS="/prg/picard-tools/1.119/MarkDuplicates.jar"
 DEDUPFOLDER="07_deduplicated"
 METRICSFOLDER="98_metrics"
+if [ -d "$DEDUPFOLDER" ]
+then
+    echo "creating out-dir"
+    mkdir "$DEDUPFOLDER"
+fi
 
-mkdir tmp
+mkdir tmp #WARNING: use TMP DIR only if lack of space! 
 
 # Copy script to log folder
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
@@ -41,11 +46,18 @@ module load java/jdk/1.8.0_102
 for file in "$bam"
 do
 #    java -jar "$MARKDUPS" \
-    java -Xmx30g -Djava.io.tmpdir=./tmp -jar "$MARKDUPS" \
+    java -Xmx20g -Djava.io.tmpdir=./tmp -jar "$MARKDUPS" \
         INPUT="$file" \
         OUTPUT="$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam \
         METRICS_FILE="$METRICSFOLDER"/metrics.txt \
         VALIDATION_STRINGENCY=SILENT \
         REMOVE_DUPLICATES=true \
 	TMP_DIR=./tmp
+done
+
+
+BAMINDEX="/prg/picard-tools/1.119/BuildBamIndex.jar"
+for file in "$bam" ; 
+do
+    java -jar "$BAMINDEX" INPUT="$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam
 done

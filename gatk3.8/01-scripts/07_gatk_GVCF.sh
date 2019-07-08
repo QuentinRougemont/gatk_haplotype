@@ -13,7 +13,7 @@ cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #last update: 10-05-2019
-#SCRIPT TO RUN HaplotypeCaller from gatkv4.0.9 in GVCF mode
+#SCRIPT TO RUN HaplotypeCaller from gatkv3.8 in GVCF mode
 #INPUT: 1 bam file per individual
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file per individual
@@ -37,7 +37,7 @@ SCRIPT=$0
 NAME=$(basename $0)
 #cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
-OUTFOLDER="10-gatk_GVCF" 
+OUTFOLDER="11-gatk_GVCF" 
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -60,9 +60,9 @@ java -jar /home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysi
 	-T HaplotypeCaller \
         -R "$REF" \
 	-nct 16\
-        -I "$file_path"/09_no_overlap/"$name" \
+        -I "$file_path"/09_cleanedbam/"$name" \
 	-ERC GVCF \
-	-hets 0.015 \
+	-hets 0.010 \
 	-variant_index_type LINEAR -variant_index_parameter 128000\
-	-indelHeterozygosity 0.01 \
+	-indelHeterozygosity 0.005\
 	-o "$file_path"/gatk38/"$OUTFOLDER"/"${name%.no_overlap.bam}".vcf.gz \
