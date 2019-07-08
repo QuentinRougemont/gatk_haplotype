@@ -35,4 +35,7 @@ all three software should be linked into your bashrc or in your bin
 
 
 Some details:
+ * **WARNING** : the script for indel realignment is no longer necessary when running HaplotypeCaller  
+	However it is still required if running UnifiedGenotyper
+
 To FILL
