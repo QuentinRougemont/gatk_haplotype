@@ -36,6 +36,11 @@ all three software should be linked into your bashrc or in your bin
 
 Some details:
  * **WARNING** : the script for indel realignment is no longer necessary when running HaplotypeCaller  
-	However it is still required if running UnifiedGenotyper
+	However it is still required if running UnifiedGenotyper  
+
+ * **WARNING** I haven't implemented the BQSR pipeline, given that we don't have reference data.
+	Might try with the same data [see](https://software.broadinstitute.org/gatk/documentation/article?id=44)  
+
+ 
 
 To FILL
