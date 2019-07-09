@@ -53,20 +53,22 @@ all software should be linked into your bashrc or in your bin, they are all open
 To FILL
 
  * _1 Trimming_
-	* Use either _trimmomatic_ (`01-scripts/01_trimmomatic.sh` or _fastp_ (`01-scripts/01_fastp.sh` )
+	* Use either **trimmomatic** (`01-scripts/01_trimmomatic.sh` or **fastp** (`01-scripts/01_fastp.sh` )
 
  * _2 Align_
-	* Use bwa mem, samtools do filter, sort and index (`01-scripts/02_bwa_mem_align_reads_PE.sh`) 
+	* Use **bwa mem**, **samtools** to filter, sort and index (`01-scripts/02_bwa_mem_align_reads_PE.sh`) 
 
  * _3 remove duplicate_
-	* Simply use picard tools (`01-scripts/03_rm_dup_and_index_sh` )
+	* Simply use **picard** tools (`01-scripts/03_rm_dup_and_index_sh` )
 
  * _5 realign indels_  
 	* use `01-scripts/05_realign_indel.sh`
 
  * _6 generate vcf with haplotype caller_ 
-	* use the different gatk scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`
+	* use the different **gatk** scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`
 
 	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
-	It is important for some statistics to keep all data including all variants or low frequency allele 
+	It is important for some statistics to keep all data including all invariants or low frequency allele  
+	Invariants can then be set to 'N' in some applications   
+	Some selection tests will be best performed with minor allele frequency thresholds 
 
