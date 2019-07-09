@@ -1,4 +1,4 @@
-# Quick and dirty pipeline for haplotype calling with Gatk.
+# pipeline for read mapping, haplotype calling and filtration from Whole Genome Sequences
 
 # Purpose:
 
@@ -20,7 +20,9 @@ all three software should be linked into your bashrc or in your bin
 
 ## To do:
 
-**FILL THIS README**
+**FILL THIS README**  
+
+**MAJOR STEPS:** 
 
  * 1 trimm the data (trimmomatic or fastp)  
  * 2 align, clean sort, index (bwa, samtools)
