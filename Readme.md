@@ -21,7 +21,7 @@ Alternatively for mapping:
 
 **Samtools** software available [here](http://www.htslib.org/)
 
-all three software should be linked into your bashrc or in your bin
+all software should be linked into your bashrc or in your bin, they are all open source
 
 ## To do:
 
