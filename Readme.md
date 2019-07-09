@@ -12,6 +12,9 @@ the syntax have been changed and there is some additional scripts required with 
 
 **trimmomatic** software available [here](http://www.usadellab.org/cms/?page=trimmomatic)
 
+Alternatively for mapping:  
+**fastp** software availalbe [here](https://github.com/OpenGene/fastp)  
+
 **gatk** software available [here](https://software.broadinstitute.org/gatk/)
 
 **picard** tools avaible [here](https://broadinstitute.github.io/picard/)
