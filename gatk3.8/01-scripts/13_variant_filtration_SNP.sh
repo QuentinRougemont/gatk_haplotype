@@ -21,7 +21,7 @@ NAME=$(basename $0)
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 #Global variables
-file=13-snp_GVCF/GVCFall_SNPs.vcf.gz ##name of the vcf file 
+file=11-snp_GVCF/GVCFall_SNPs.vcf.gz ##name of the vcf file 
 if [ -z "$file" ]
 then
     echo "Error: need vcf "
@@ -29,7 +29,7 @@ then
 fi
 name=$(basename $file)
 
-OUTFOLDER="15-snp_filter"
+OUTFOLDER="13-snp_filter"
 if [ ! -d "OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -39,7 +39,7 @@ fi
 #path to local folder
 file_path="${pwd}"
 #path to genome
-REF="$file_path/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
+REF="$file_path/02_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
 if [ -z $REF ];
 then
     echo "error please provide reference fasta"

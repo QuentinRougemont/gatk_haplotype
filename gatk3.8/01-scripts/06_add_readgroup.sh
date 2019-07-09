@@ -18,7 +18,7 @@ fi
 
 picar="/home/qurou/software/picard_tools/picard.jar"
 
-OUTFOLDER="09_cleanedbam"
+OUTFOLDER="08_cleanedbam"
 if [ ! -d $OUTFOLDER ]
 then
 	mkdir $OUTFOLDER

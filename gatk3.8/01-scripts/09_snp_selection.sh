@@ -21,7 +21,7 @@ cd $SLURM_SUBMIT_DIR
 #module load java
 #module load gatk/4.1.0.0
 #Global variables
-OUTFOLDER="13-snp_GVCF"
+OUTFOLDER="11-snp_GVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -31,7 +31,7 @@ fi
 #file_path="/home/quentin/scratch/10.GATK/coho"
 file_path="${pwd}"
 
-REF="$file_path/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
+REF="$file_path/02_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
 if [ -z $REF ];
 then
     echo "error please provide reference fasta"
@@ -44,6 +44,6 @@ echo "######"
 java -Xmx16g -jar /home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar \
 	-T SelectVariants \
         -R "$REF" \
-        -V "$file_path"/12-genoGVCF/GVCFall.vcf.gz \
+        -V "$file_path"/10-combineGVCF/combinedGVCF.vcf.gz \
 	-selectType SNP \
 	-o "$file_path"/"$OUTFOLDER"/GVCFall_SNPs.vcf.gz 

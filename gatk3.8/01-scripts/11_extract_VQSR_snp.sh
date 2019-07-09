@@ -22,12 +22,12 @@ cd $SLURM_SUBMIT_DIR
 #module load gatk/4.1.0.0
 
 #Global variables
-OUTFOLDER="13-snp_GVCF"
+OUTFOLDER="11-snp_GVCF"
 #file_path="/home/quentin/scratch/10.GATK/coho"
 file_path="${pwd}"
 
 #PATH TO ref genome:
-REF="$file_path/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
+REF="$file_path/02_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
 if [ -z $REF ];
 then
     echo "error please provide reference fasta"

@@ -18,14 +18,14 @@ bam=$1
 if [ $# -eq 0 ]
 then
         echo "error need bam file"
-	echo "bam should be in 07_deduplicated folder"
+	echo "bam should be in 06_deduplicated folder"
         exit
 fi
 
 # Global variables
 GATK="/home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar"
-REALIGNFOLDER="08_realigned"
-GENOMEFOLDER="03_genome"
+REALIGNFOLDER="07_realigned"
+GENOMEFOLDER="02_genome"
 GENOME="GCF_002021735.1_Okis_V1_genomic.fasta"
 
 # Load needed modules
@@ -43,7 +43,7 @@ for file in "$bam"
 do
 java -Xmx8g -jar $GATK\
         -T RealignerTargetCreator \
-	-nt 16 \
+	-nct 16 \
         -R "$GENOMEFOLDER"/"$GENOME" \
         -I "$file" \
         -o "${file%.dedup.bam}".intervals

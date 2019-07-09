@@ -13,10 +13,10 @@
 cd $SLURM_SUBMIT_DIR
 
 # Global variables
-GENOMEFOLDER="03_genome"
+GENOMEFOLDER="02_genome"
 GENOME="genome.fasta"
-RAWDATAFOLDER="05_trimmed/file1" #each folder contain a bam, run all bam in parallel
-ALIGNEDFOLDER="06_aligned"
+RAWDATAFOLDER="04_trimmed/file1" #each folder contain a bam, run all bam in parallel
+ALIGNEDFOLDER="05_aligned"
 NCPU=$1
 #data were cleaned with fastp
 

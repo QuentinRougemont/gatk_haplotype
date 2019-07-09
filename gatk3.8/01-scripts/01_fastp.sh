@@ -13,9 +13,9 @@
 cd $SLURM_SUBMIT_DIR
 
 #create outputput dir if not present
-if [ ! -d "05_trimmed" ]
+if [ ! -d "04_trimmed" ]
 then
-	mkdir 05_trimmed
+	mkdir 04_trimmed
 fi
 
 #on fastq by subfolder "file1" and runs all in parallel
@@ -31,8 +31,8 @@ do
 	-c \
         -i "$input_file"_R1.fastq.gz \
         -I "$input_file"_R2.fastq.gz \
-        -o 05_trimmed/"$output_file"_1.trimmed.fastq.gz \
-        -O 05_trimmed/"$output_file"_2.trimmed.fastq.gz \
-        -j 05_trimmed/01_reports/"$output_file".json \
-        -h 05_trimmed/01_reports/"$output_file".html
+        -o 04_trimmed/"$output_file"_1.trimmed.fastq.gz \
+        -O 04_trimmed/"$output_file"_2.trimmed.fastq.gz \
+        -j 04_trimmed/01_reports/"$output_file".json \
+        -h 04_trimmed/01_reports/"$output_file".html
 done

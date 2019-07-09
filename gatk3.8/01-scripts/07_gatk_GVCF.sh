@@ -20,7 +20,7 @@ cd $SLURM_SUBMIT_DIR
 ########################################################
 
 #Global variables
-file=$1 #name of the bam file 
+file=$1 #name of the bam file
 if [ -z "$file" ]
 then
     echo "Error: need bam name (eg: sample1.bam)"
@@ -37,7 +37,7 @@ SCRIPT=$0
 NAME=$(basename $0)
 #cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
-OUTFOLDER="11-gatk_GVCF" 
+OUTFOLDER="09-gatk_GVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -46,7 +46,7 @@ fi
 
 #PATH TO ref genome:
 file_path=$(pwd)
-REF="$file_path/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
+REF="$file_path/02_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
 if [ -z $REF ];
 then
     echo "error please provide reference fasta"
@@ -60,7 +60,7 @@ java -jar /home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysi
 	-T HaplotypeCaller \
         -R "$REF" \
 	-nct 16\
-        -I "$file_path"/09_cleanedbam/"$name" \
+        -I "$file_path"/08_cleanedbam/"$name" \
 	-ERC GVCF \
 	-hets 0.010 \
 	-variant_index_type LINEAR -variant_index_parameter 128000\

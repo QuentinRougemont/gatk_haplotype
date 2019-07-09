@@ -22,7 +22,7 @@ fi
 
 # Global variables
 MARKDUPS="/prg/picard-tools/1.119/MarkDuplicates.jar"
-DEDUPFOLDER="07_deduplicated"
+DEDUPFOLDER="06_deduplicated"
 METRICSFOLDER="98_metrics"
 if [ -d "$DEDUPFOLDER" ]
 then
@@ -37,6 +37,11 @@ TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 SCRIPT=$0
 NAME=$(basename $0)
 LOG_FOLDER="99_log_files"
+if [ -d "$LOG_FOLDER" ]
+then
+	mkdir "$LOG_FOLDER"
+fi
+
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Load needed modules

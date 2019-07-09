@@ -14,7 +14,7 @@ cd $SLURM_SUBMIT_DIR
 
 # Global variables
 CSD="/prg/picard-tools/1.119/CreateSequenceDictionary.jar"
-GENOMEFOLDER="03_genome"
+GENOMEFOLDER="02_genome"
 GENOME="genome.fasta"
 DICT="$GENOMEFOLDER"/"${GENOME%.fasta}".dict
 
