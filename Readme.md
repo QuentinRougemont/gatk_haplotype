@@ -1,8 +1,10 @@
-# pipeline for read mapping, haplotype calling and filtration from Whole Genome Sequences
+# pipeline for read trimming, mapping, variant calling and filtration from Whole Genome Sequences
 
 # Purpose:
 
-simple pipeline to call haplotypes from whole genome sequencing data
+Simple pipeline to call haplotypes from whole genome sequencing data   
+Two versions are provided, one with gatk3.8 and the other with gatk4. I provide both because  
+the syntax have been changed and there is some additional scripts required with gatk4.
 
 ## Dependencies:
 
