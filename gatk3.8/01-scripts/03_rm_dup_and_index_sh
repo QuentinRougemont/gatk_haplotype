@@ -35,7 +35,7 @@ then
     mkdir "$METRICSFOLDER"
 fi
 
-mkdir tmp #WARNING: use TMP DIR only if lack of space! 
+#mkdir tmp #WARNING: use TMP DIR only if lack of space! 
 
 # Copy script to log folder
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
@@ -55,14 +55,14 @@ module load java/jdk/1.8.0_102
 # Remove duplicates from bam alignments
 for file in "$bam"
 do
-#    java -jar "$MARKDUPS" \
-    java -Xmx20g -Djava.io.tmpdir=./tmp -jar "$MARKDUPS" \
+#    java -Xmx20g -Djava.io.tmpdir=./tmp -jar "$MARKDUPS" \
+    java -jar "$MARKDUPS" \
         INPUT="$file" \
         OUTPUT="$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam \
         METRICS_FILE="$METRICSFOLDER"/metrics.txt \
         VALIDATION_STRINGENCY=SILENT \
         REMOVE_DUPLICATES=true \
-	TMP_DIR=./tmp
+	#TMP_DIR=./tmp
 done
 
 BAMINDEX="/prg/picard-tools/1.119/BuildBamIndex.jar"
