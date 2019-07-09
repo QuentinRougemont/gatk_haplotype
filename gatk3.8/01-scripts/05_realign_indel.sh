@@ -1,19 +1,8 @@
 #!/bin/bash
-#SBATCH -J "indel_rainbow"
-#SBATCH -o log_%j
-#SBATCH -c 1
-#SBATCH -p medium
-##ATCH -A large
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=YOUREMAIL
-#SBATCH --time=05-00:00
-#SBATCH --mem=15G
 
-# Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
-
-#THESE TWO STEPS BELOWs ARE NO LONGER NECESARRY WITH HaplotyCaller but requirer with UnifiedGenotyper
-
+#script to realign indels
+#########################################################
+#WARNINGS: THESE TWO STEPS BELOWs ARE NO LONGER NECESARRY WITH HaplotyCaller but requirer with UnifiedGenotyper
 bam=$1
 if [ $# -eq 0 ]
 then

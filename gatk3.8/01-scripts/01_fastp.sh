@@ -1,17 +1,7 @@
 #!/bin/bash
-#SBATCH -J "fastp_chinook"
-#SBATCH -o log_%j
-#SBATCH -c 6
-#SBATCH -p medium
-##ATCH -A large
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=YOUREMAIL
-#SBATCH --time=05-00:00
-#SBATCH --mem=10G
 
-# Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
-
+#script to trimm data
+#########################################################
 #create outputput dir if not present
 if [ ! -d "04_trimmed" ]
 then

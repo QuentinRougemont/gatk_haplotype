@@ -1,17 +1,7 @@
 #!/bin/bash
-#SBATCH -J "dict_rainbow_trout"
-#SBATCH -o log_%j
-#SBATCH -c 1
-#SBATCH -p small
-##ATCH -A large
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=YOUREMAIL
-#SBATCH --time=01-00:00
-#SBATCH --mem=15G
 
-# Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
-
+#script to create dictionnary
+#########################################################
 # Global variables
 CSD="/prg/picard-tools/1.119/CreateSequenceDictionary.jar"
 GENOMEFOLDER="02_genome"

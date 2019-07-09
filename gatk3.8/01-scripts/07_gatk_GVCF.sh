@@ -1,15 +1,4 @@
 #!/bin/bash
-#SBATCH -J "coho"
-#SBATCH -o log_%j
-#SBATCH -c 1
-#SBATCH -p medium
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=YOUREMAIL
-#SBATCH --time=06-00:00
-#SBATCH --mem=20G
-
-# Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #last update: 10-05-2019
