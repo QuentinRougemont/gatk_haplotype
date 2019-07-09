@@ -41,7 +41,6 @@ all software should be linked into your bashrc or in your bin, they are all open
  * 10 Filters variants (quality, depth, etc) 
 
 
-Some details:
  * **WARNING** : the script for indel realignment is no longer necessary when running HaplotypeCaller  
 	However it is still required if running UnifiedGenotyper  
 
@@ -49,5 +48,25 @@ Some details:
 	Might try with the same data [see](https://software.broadinstitute.org/gatk/documentation/article?id=44)  
 
  
+**Some details:** 
 
 To FILL
+
+ * _1 Trimming_
+	* Use either _trimmomatic_ (`01-scripts/01_trimmomatic.sh` or _fastp_ (`01-scripts/01_fastp.sh` )
+
+ * _2 Align_
+	* Use bwa mem, samtools do filter, sort and index (`01-scripts/02_bwa_mem_align_reads_PE.sh`) 
+
+ * _3 remove duplicate_
+	* Simply use picard tools (`01-scripts/03_rm_dup_and_index_sh` )
+
+ * _5 realign indels_  
+	* use `01-scripts/05_realign_indel.sh`
+
+ * _6 generate vcf with haplotype caller_ 
+	* use the different gatk scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`
+
+	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
+	It is important for some statistics to keep all data including all variants or low frequency allele 
+
