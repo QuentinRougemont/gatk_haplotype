@@ -29,6 +29,11 @@ then
     echo "creating out-dir"
     mkdir "$DEDUPFOLDER"
 fi
+if [ -d "$METRICSFOLDER" ]
+then
+    echo "creating metric dir"
+    mkdir "$METRICSFOLDER"
+fi
 
 mkdir tmp #WARNING: use TMP DIR only if lack of space! 
 

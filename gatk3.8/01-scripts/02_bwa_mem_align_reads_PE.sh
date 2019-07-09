@@ -25,10 +25,10 @@ if [[ -z "$NCPU" ]]
 then
     NCPU=4
 fi
-if [ -d "$ALIGNEDPFOLDER" ]
+if [ -d "$ALIGNEDFOLDER" ]
 then
     echo "creating out-dir"
-    mkdir "$ALIGNEPFOLDER"
+    mkdir "$ALIGNEDFOLDER"
 fi
 
 # Load needed modules
