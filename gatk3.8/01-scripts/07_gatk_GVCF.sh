@@ -51,7 +51,7 @@ java -jar /home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysi
 	-nct 16\
         -I "$file_path"/08_cleanedbam/"$name" \
 	-ERC GVCF \
-	-hets 0.010 \
+	-hets 0.001 \
 	-variant_index_type LINEAR -variant_index_parameter 128000\
-	-indelHeterozygosity 0.005\
-	-o "$file_path"/gatk38/"$OUTFOLDER"/"${name%.no_overlap.bam}".vcf.gz \
+	-indelHeterozygosity 0.0005\
+	-o "$file_path"/gatk38/"$OUTFOLDER"/"${name%.no_overlap.bam}".g.vcf.gz \
