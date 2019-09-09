@@ -1,6 +1,15 @@
 #!/bin/bash
 
+
+#AUTHOR: Q. Rougemont
+
+#DATE: June2019
+
+#Purpose:
 #script to filter indel
+########################################################################
+#help
+#to write
 ########################################################
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 LOG_FOLDER="99-log_files"

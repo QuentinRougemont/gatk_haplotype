@@ -1,7 +1,15 @@
 #!/bin/bash
 
+#AUTHOR: Q. Rougemont
+
+#DATE: June2019
+
+#Purpose:
 #script to filter SNP
-########################################################
+########################################################################
+#help
+#to write
+
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 LOG_FOLDER="99-log_files"
 SCRIPT=$0
@@ -18,7 +26,7 @@ fi
 name=$(basename $file)
 
 OUTFOLDER="13-snp_filter"
-if [ ! -d "OUTFOLDER" ]
+if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
