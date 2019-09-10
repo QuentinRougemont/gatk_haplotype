@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J "coho"
+#SBATCH -J "job_name"
 #SBATCH -o log_%j
 #SBATCH -c 1
 #SBATCH -p medium
