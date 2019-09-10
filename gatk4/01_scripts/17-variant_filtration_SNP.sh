@@ -10,9 +10,11 @@
 #SBATCH --mem=30G
 
 # Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
-
+#cd $SLURM_SUBMIT_DIR
 #########################################################
+#AUTHOR: Q. Rougemont
+#DATE: June 2019
+#Purpose: Script to filter SNPs
 ########################################################
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 LOG_FOLDER="99-log_files"
@@ -36,18 +38,19 @@ then
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
 fi
-ROAD=$(pwd)
-REF="${ROAD}/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta" 
+C_PATH=$(pwd)
+REF="$C_PATH/03_genome/your_ref_genome.fasta" 
 ################## run gatk ########################################
+echo "keep good quality SNPs now"
 gatk --java-options "-Xmx57G" \
- 	 VariantFiltration \
-	-R "$REF" \
-	-O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
-	-V "$ROAD"/"$file" \
-	--filterExpression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
-	--filterName "snp_filtration" 
-	
-gunzip "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
-	grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
-gzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
+    VariantFiltration \
+    -R "$REF" \
+    -O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
+    -V "$C_PATH"/"$file" \
+    --filterExpression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
+    --filterName "snp_filtration" 
+
+#gunzip "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
+    grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
+#gzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
 

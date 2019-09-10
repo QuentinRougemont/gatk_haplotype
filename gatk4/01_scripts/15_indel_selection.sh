@@ -8,11 +8,12 @@
 #SBATCH --time=06-00:00
 #SBATCH --mem=08G
 # Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
+#cd $SLURM_SUBMIT_DIR
 
 #########################################################
-#last update: 28-05-2019
-#SCRIPT To select Indels variant from gatk-4.1.2.0
+#AUTHOR: Q. Rougemont
+#Date : June 2019
+#Purpose: SCRIPT To select Indels variant from gatk-4.1.2.0
 #INPUT: 1 vcf file fro GenotypeGVCFs
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file with Indels only (for all individuals) 
@@ -29,22 +30,29 @@ then
     mkdir "$OUTFOLDER"
 fi
 
-file_path=$(pwd)
+FILE_PATH=$(pwd)
 
-REF="$file_path/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
+REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
 
 if [ -z $REF ];
 then
     echo "error please provide reference fasta"
     exit
 fi
+
+gvcfall="$FILE_PATH/12-genoGVCF/GVCFall.vcf.gz"
+if [ -z $gvcfall ];
+then
+    echo "error no input vcf provided"
+    exit
+fi
 ################## run gatk ########################################
-echo "#####"
-echo "extract  indel"
-echo "######"
+echo "############# Running GATK ###########"
+echo "# extracting indel from whole vcf.gz #"
+
 gatk --java-options "-Xmx57G" \
-	SelectVariants \
-        -R "$REF" \
-	-V "$file_path"/12-genoGVCF/GVCFall.vcf.gz \
-	--select-type-to-include INDEL\
-	-O "$file_path"/"$OUTFOLDER"/GVCFall_INDEL.vcf.gz 
+    SelectVariants \
+    -R "$REF" \
+    -V  "$gvcfall" \
+    --select-type-to-include INDEL\
+    -O "$FILE_PATH"/"$OUTFOLDER"/GVCFall_INDEL.vcf.gz 

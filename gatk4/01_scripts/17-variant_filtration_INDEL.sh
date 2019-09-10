@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J "big_filtration"
+#SBATCH -J "variantfiltration"
 #SBATCH -o log_%j
 #SBATCH -c 1
 #SBATCH -p large
@@ -10,9 +10,11 @@
 #SBATCH --mem=30G
 
 # Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
-
+#cd $SLURM_SUBMIT_DIR
 #########################################################
+#AUTHOR: Q. Rougemont
+#DATE: June 2019
+#Purpose: Script to filter indel
 ########################################################
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 LOG_FOLDER="99-log_files"
@@ -21,30 +23,30 @@ NAME=$(basename $0)
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 #Global variables
-file=14-indel_GVCF/GVCFall_INDEL.vcf.gz #~$1 #name of the bam file 
+file=14-indel_GVCF/GVCFall_INDEL.vcf.gz #~$1 #name of the vcf indel file 
 if [ -z "$file" ]
 then
-    echo "Error: need vcf "
+    echo "Error: need vcf file"
     exit
 fi
 
 name=$(basename $file)
 
 OUTFOLDER="15-indel_filter"
-if [ ! -d "OUTFOLDER" ]
+if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
 fi
-ROAD=$(pwd)
-REF="${ROAD}/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta" 
-ROAD="/home/qurou/14.epic4/10.WGS/02.align_outgroup/wgs_sample_preparation_coho"
+FILE_PATH=$(pwd)
+REF="$FILE_PATH/03_genome/your_ref_genome.fasta" 
 ################## run gatk ########################################
-#gatk --java-options "-Xmx57G" \
+echo "keep good quality indel now"
+
 gatk --java-options "-Xmx57G" \
- 	 VariantFiltration \
-	-R "$REF" \
-	-O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
-	-V "$ROAD"/"$file" \
-	--filter-expression "QUAL < 0 || MQ < 30.00 || SOR > 10.000 || QD < 2.00 || FS > 200.000 || ReadPosRankSum < -20.000 || ReadPosRankSum > 20.000" \
-	--filter-name "snp_filtration" 
+    VariantFiltration \
+    -R "$REF" \
+    -O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
+    -V "$FILE_PATH"/"$file" \
+    --filter-expression "QUAL < 0 || MQ < 30.00 || SOR > 10.000 || QD < 2.00 || FS > 200.000 || ReadPosRankSum < -20.000 || ReadPosRankSum > 20.000" \
+    --filter-name "indel_filtration" 

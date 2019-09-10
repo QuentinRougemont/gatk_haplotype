@@ -11,10 +11,11 @@
 cd $SLURM_SUBMIT_DIR
 
 #########################################################
-#last update: 28-05-2019
-#SCRIPT To select SNP variant from gatk-4.1.2.0
-#INPUT: 1 vcf file fro GenotypeGVCFs
-#INPUT: fasta file (reference genome)
+#AUTHOR: Q. Rougemont
+#Last update: 28-05-2019
+#Purpose: Script To select SNP variant from gatk-4.1.2.0
+#INPUT:   1 vcf file obtained after running GenotypeGVCFs
+#INPUT:   1 fasta file (reference genome)
 #OUTPUT : 1 vcf file with SNPs only (for all individuals) 
 ########################################################
 
@@ -30,21 +31,26 @@ then
     mkdir "$OUTFOLDER"
 fi
 
-file_path=$(pwd)
-
-REF="$file_path/03_genome/GCF_002021735.1_Okis_V1_genomic.fasta"
+FILE_PATH=$(pwd)
+REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
 if [ -z $REF ];
 then
     echo "error please provide reference fasta"
     exit
 fi
+gvcfall="$FILE_PATH/12-genoGVCF/GVCFall.vcf.gz"
+if [ -z $gvcfall ];
+then
+    echo "error no input vcf provided"
+    exit
+fi
 ################## run gatk ########################################
-echo "#####"
-echo "selectin SNP only"
-echo "######"
+echo "############# Running GATK ###########"
+echo "# extracting SNPs from whole vcf.gz #"
+
 gatk --java-options "-Xmx57G" \
-	SelectVariants \
-        -R "$REF" \
-        -V "$file_path"/12-genoGVCF/GVCFall.vcf.gz \
-	 --select-type-to-include SNP \
-	-O "$file_path"/"$OUTFOLDER"/GVCFall_SNPs.vcf.gz 
+    SelectVariants \
+    -R "$REF" \
+    -V "$gvcfall" \
+    --select-type-to-include SNP \
+    -O "$FILE_PATH"/"$OUTFOLDER"/GVCFall_SNPs.vcf.gz 

@@ -1,14 +1,10 @@
 #!/bin/bash
 
+#########################################################
 #AUTHOR: Q. Rougemont
-
-#DATE: June2019
-
-#Purpose:
-#script to filter SNP
-########################################################################
-#help
-#to write
+#DATE: June 2019
+#Purpose: Script to filter SNPs
+########################################################
 
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 LOG_FOLDER="99-log_files"
@@ -46,14 +42,14 @@ echo "#####"
 echo "Keep nice SNP"
 echo "######"
 java -Xmx16g -jar /home/qurou/software/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar \
-	-T VariantFiltration \
-	-R "$REF" \
-	-O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
-	-V "$ROAD"/"$file" \
-	--filterExpression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
-	--filterName "snp_filtration" 
-	
+    -T VariantFiltration \
+    -R "$REF" \
+    -O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
+    -V "$ROAD"/"$file" \
+    --filterExpression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
+    --filterName "snp_filtration" 
+    
 gunzip "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
-	grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
+    grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
 gzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
 
