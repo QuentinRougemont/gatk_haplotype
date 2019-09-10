@@ -8,7 +8,7 @@
 #SBATCH --time=06-00:00
 #SBATCH --mem=08G
 # Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
+#cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #Author: Q. Rougemont
@@ -40,4 +40,4 @@ gatk --java-options "-Xmx57G" \
     VariantsToTable \
     -V "$file" \
     -F CHROM -F POS -F ID  -F REF -F ALT -F QUAL -F QD -F DP -F MQ -F MQRankSum -F FS -F ReadPosRankSum -F SOR \
-    -O "${file%.vcf.gz}.table \
+    -O "${file%.vcf.gz}".table \
