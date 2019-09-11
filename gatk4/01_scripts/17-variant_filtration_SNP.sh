@@ -23,7 +23,7 @@ NAME=$(basename $0)
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 #Global variables
-file=13-snp_GVCF/GVCFall_SNPs.vcf.gz #~$1 #name of the bam file 
+file=$1 #13-snp_GVCF/GVCFall_SNPs.vcf.gz #~$1 #name of the bam file 
 if [ -z "$file" ]
 then
     echo "Error: need vcf "
@@ -38,19 +38,17 @@ then
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
 fi
-C_PATH=$(pwd)
-REF="$C_PATH/03_genome/your_ref_genome.fasta" 
+FILE_PATH=$(pwd)
 ################## run gatk ########################################
 echo "keep good quality SNPs now"
 gatk --java-options "-Xmx57G" \
     VariantFiltration \
-    -R "$REF" \
     -O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
-    -V "$C_PATH"/"$file" \
+    -V "$FILE_PATH"/"$file" \
     --filterExpression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
     --filterName "snp_filtration" 
 
-#gunzip "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
+zcat "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
     grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
 #gzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
 
