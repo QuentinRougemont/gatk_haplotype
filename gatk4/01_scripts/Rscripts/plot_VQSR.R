@@ -26,9 +26,9 @@ vcf <- paste("zcat", vcf ,sep=" ")
 VCF <- fread(vcf)
 
 p0 <- ggplot(VCF, aes(x=QUAL)) + 
-    geom_density(alpha=0.3) 
+    geom_density(alpha=.3) 
 p1 <- ggplot(VCF, aes(x=DP)) + 
-    geom_density(alpha=0.3) 
+    geom_density(alpha=.3) 
 p2 <- ggplot(VCF, aes(x=QD)) + 
     geom_density(alpha=.3) 
 p3 <- ggplot(VCF, aes(x=MQ)) +
