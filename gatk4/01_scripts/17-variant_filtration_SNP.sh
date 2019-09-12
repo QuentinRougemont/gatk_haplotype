@@ -41,6 +41,9 @@ fi
 FILE_PATH=$(pwd)
 ################## run gatk ########################################
 echo "keep good quality SNPs now"
+echo "input file is $file "                                         
+echo "output file will be "${name%.vcf.gz}".filter3.vcf.gz"         
+
 gatk --java-options "-Xmx57G" \
     VariantFiltration \
     -O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
@@ -48,7 +51,10 @@ gatk --java-options "-Xmx57G" \
     --filterExpression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
     --filterName "snp_filtration" 
 
+################## Kepp good file ##################################
 zcat "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
     grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
-#gzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
-
+bgzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
+tabix -p vcf "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf.gz
+bcftools index "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf.gz
+ 
