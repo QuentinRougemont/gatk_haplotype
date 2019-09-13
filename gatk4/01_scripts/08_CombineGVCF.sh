@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #SBATCH -J "job_name"
 #SBATCH -o log_%j
@@ -27,6 +28,19 @@
 #for i in $(ls 10-gatk_GVCF/*gz ) ; do echo -e "\t -V" $i \\ ; done  > list_vcf
 
 #Global variables
+#creating folder:
+TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
+LOG_FOLDER="100_log_files"
+if [ ! -d "$LOG_FOLDER" ]
+then
+    mkdir "$LOG_FOLDER"
+fi
+
+SCRIPT=$0
+NAME=$(basename $0)
+cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
+
+
 OUTFOLDER="11-CombineGVCF" 
 if [ ! -d "$OUTFOLDER" ]
 then 

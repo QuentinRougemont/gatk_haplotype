@@ -15,28 +15,46 @@
 #########################################################
 #AUTHOR Q. Rougemont
 #DATE : June 2019
-#Purpose:
-#script to remove duplicate
+#Purpose: #script to remove duplicate
+#INPUT: bam file
+#OUTPUT: bam file with duplicated marks
 #########################################################
+
 bam=$1
 if [ $# -eq 0 ]
 then
-        echo "error need bam file "
-	echo "bam should be in 06_aligned folder"
-        exit
+    echo "error need bam file "
+    echo "bam should be in 06_aligned folder"
+    exit
 fi
 
 # Global variables
 MARKDUPS="/prg/picard-tools/1.119/MarkDuplicates.jar"
 #ALIGNEDFOLDER="06_aligned/"
 DEDUPFOLDER="07_deduplicated"
-METRICSFOLDER="98_metrics"
+METRICSFOLDER="99_metrics"
+
+#create folders:
+if [ ! -d "$DEDUPFOLDER" ]
+then
+    mkdir "$DEDUPFOLDER"
+fi
+
+if [ ! -d "$METRICSFOLDER" ]
+then
+    mkdir "$METRICSFOLDER"
+fi
 
 # Copy script to log folder
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 SCRIPT=$0
 NAME=$(basename $0)
-LOG_FOLDER="99_log_files"
+LOG_FOLDER="100_log_files"
+if [ ! -d "$LOG_FOLDER" ]
+then
+    mkdir "$LOG_FOLDER"
+fi
+
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Load needed modules
@@ -52,5 +70,5 @@ do
         METRICS_FILE="$METRICSFOLDER"/metrics.txt \
         VALIDATION_STRINGENCY=SILENT \
         REMOVE_DUPLICATES=true \
-	TMP_DIR=./tmp
+    TMP_DIR=./tmp
 done

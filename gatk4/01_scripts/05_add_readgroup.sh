@@ -16,27 +16,27 @@
 #########################################################
 #AUTHOR Q. Rougemont
 #DATE : June 2019
-#Purpose:
-#script to add read group
+#Purpose: Script to add read group
 #########################################################
 
 # Global variables
 file=$1 #bam files  provide all bam one by one to run one bam by cpu
 if [ -z $file ]
 then
-	echo "error need bam file"
-	exit
-fi
-
-picar="/home/qurou/software/picard_tools/picard.jar"
-
-OUTFOLDER="08_cleanedbam"
-if [ ! -d $OUTFOLDER ]
-then
-	mkdir $OUTFOLDER
+    echo "error need bam file"
+    exit
 fi
 
 name=$(basename $file)
+
+#Load picard:
+picar="/home/qurou/software/picard_tools/picard.jar"
+
+OUTFOLDER="08_cleaned_bam"
+if [ ! -d $OUTFOLDER ]
+then
+    mkdir $OUTFOLDER
+fi
 
 java -jar "$picar" AddOrReplaceReadGroups \
      I="$file"  \
@@ -46,6 +46,5 @@ java -jar "$picar" AddOrReplaceReadGroups \
      RGPU=barcode\
      RGSM="$name"\
      #VALIDATION_STRINGENCY=LENIENT
-
 
 samtools index "$OUTFOLDER"/"$name"  

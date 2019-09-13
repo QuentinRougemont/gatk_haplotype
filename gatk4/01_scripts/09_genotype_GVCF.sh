@@ -5,19 +5,19 @@
 #SBATCH -p medium
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=YOUREMAIL
-#SBATCH --time=06-00:00
-#SBATCH --mem=20G
+#SBATCH --time=07-00:00
+#SBATCH --mem=18G
 
 # Move to directory where job was submitted
 #cd $SLURM_SUBMIT_DIR
 
 #########################################################
-#AUTOHR: Q. Rougemont
-#Last UPDATE: 10-05-2019
-#Purpose: Script to Run HaplotypeCaller from gatkv4.0.9 in GVCF mode
-#INPUT: 1 bam file per individual
+#AUTHOR: Q. Rougemont
+#Last update: 28-05-2019
+#PURPOSE: Script to run GATK genotyper from gatkv4.0.9 in GVCF mode
+#INPUT: 1 gvcf obtain the script 12_CombinedGVCF.sh
 #INPUT: fasta file (reference genome)
-#OUTPUT : 1 vcf file per individual
+#OUTPUT : 1 vcf file 
 ########################################################
 
 #load module (on beluga only)
@@ -25,28 +25,24 @@
 #module load gatk/4.1.0.0
 
 #Global variables
-file=$1 #name of the bam file 
-if [ -z "$file" ]
-then
-    echo "Error: need bam name (eg: sample1.bam)"
-    exit
-fi
-
-name=$(basename $file)
+#creating folder:
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="99-log_files"
+LOG_FOLDER="100-log_files"
+if [ ! -d "$LOG_FOLDER" ]
+then
+    mkdir "$LOG_FOLDER"
+fi
 SCRIPT=$0
 NAME=$(basename $0)
-#cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
+cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
-OUTFOLDER="10-gatk_GVCF" 
+OUTFOLDER="12-genoGVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
 fi
 
-#path to the local dir
 FILE_PATH=$(pwd)
 
 #PATH TO ref genome:
@@ -56,16 +52,21 @@ then
     echo "error please provide reference fasta"
     exit
 fi
+gvcfcomb="$FILE_PATH/11-CombineGVCF/combinedGVCF.vcf.gz"
+if [ -z $gvcfcomb ];
+then
+    echo "error no input vcf provided"
+    exit
+fi
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
-echo "Running haplotypcaller for file $name "
+echo "#     genotyping whole gvcf.gz       #"
 
 gatk --java-options "-Xmx57G" \
-    HaplotypeCaller \
+    GenotypeGVCFs \
     -R "$REF" \
-    --native-pair-hmm-threads 8\
-    -I "$FILE_PATH"/"$file" \
-    -ERC GVCF \
+    -V "$gvcfcomb" \
+    -all-sites true \
     --heterozygosity 0.0015 \
     --indel-heterozygosity 0.001 \
-    -O "$FILE_PATH"/"$OUTFOLDER"/"${name%.no_overlap.bam}".g.vcf.gz \
+    -O "$FILE_PATH"/"$OUTFOLDER"/GVCFall.vcf.gz \

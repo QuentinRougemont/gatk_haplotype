@@ -12,8 +12,14 @@
 # Move to directory where job was submitted
 #cd $SLURM_SUBMIT_DIR
 
+#PURPOSE: performs Paired-End alignment of fastq files on reference genome
+#INPUT: fastq file, Ref genome
+#OUTPUT: bam file
+
 # Global variables
 fastq=$1
+NCPU=$2 
+
 if [ $# -eq 0 ]
 then
         echo "error need fastq file"
@@ -25,6 +31,14 @@ GENOME="your_reference_genome.fasta"
 RAWDATAFOLDER="05_trimmed"
 ALIGNEDFOLDER="06_aligned"
 NCPU=$1
+
+#verify that genome folder contains the genome:
+#test if folder exists:
+if [ -z "$(ls -A 03_genome/)" ]; then
+   echo "Error Empty folder"
+   echo "The folder 03_genome should contain the fasta ref"
+   exit
+fi
 
 # Test if user specified a number of CPUs
 if [[ -z "$NCPU" ]]

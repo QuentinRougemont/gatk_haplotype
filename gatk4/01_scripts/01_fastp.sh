@@ -10,7 +10,14 @@
 #SBATCH --mem=10G
 
 # Move to directory where job was submitted
-cd $SLURM_SUBMIT_DIR
+#cd $SLURM_SUBMIT_DIR
+
+#test if folder exists:
+if [ -z "$(ls -A 04_raw_data/)" ]; then
+   echo "Error Empty folder"
+   echo "Raw fastq should be stored here"
+   exit
+fi
 
 # trim input files in 04_raw_data with fastp
 
