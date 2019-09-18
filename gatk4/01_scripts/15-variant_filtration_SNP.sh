@@ -53,8 +53,8 @@ gatk --java-options "-Xmx57G" \
 
 ################## Kepp good file ##################################
 zcat "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz | \
-    grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
-bgzip "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf
-tabix -p vcf "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf.gz
-bcftools index "$OUTFOLDER"/"${name%.vcf.gz}".filterPASSED.vcf.gz
+    grep -E '^#|PASS'  > "$OUTFOLDER"/"${name%.vcf.gz}".SNP.vcf
+bgzip "$OUTFOLDER"/"${name%.vcf.gz}".SNP.vcf
+tabix -p vcf "$OUTFOLDER"/"${name%.vcf.gz}".SNP.vcf.gz
+bcftools index "$OUTFOLDER"/"${name%.vcf.gz}".SNP.vcf.gz
  

@@ -50,3 +50,9 @@ gatk --java-options "-Xmx57G" \
     -V "$FILE_PATH"/"$file" \
     --filter-expression "QUAL < 0 || MQ < 30.00 || SOR > 10.000 || QD < 2.00 || FS > 200.000 || ReadPosRankSum < -20.000 || ReadPosRankSum > 20.000" \
     --filter-name "indel_filtration" 
+
+zcat "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz |grep  -E '^#|PASS' > "$OUTFOLDER"/${names%.vcf.gz}.INDEL.vcf 
+
+bgzip "$OUTFOLDER"/${names%.vcf.gz}.INDEL.vcf 
+tabix -p vcf "$OUTFOLDER"/${names%.vcf.gz}.INDEL.vcf.gz
+bcftools index  "$OUTFOLDER"/${names%.vcf.gz}.INDEL.vcf.gz
