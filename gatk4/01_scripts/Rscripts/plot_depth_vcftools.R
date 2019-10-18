@@ -15,11 +15,10 @@ library(cowplot)
 
 argv  <- commandArgs(TRUE)
 if (argv[1]=="-h" || length(argv)==0){
-        cat("\n compressed VQSR table file needed!! \n  
-	cat("\n Can be obtained by running script 16_extract_VQSR_snp.sh"
-    \n" )
+        cat("\n compressed VQSR table file needed!! \n ") 
+        cat("\n Can be obtained by running script 16_extract_VQSR_snp.sh\n" )
 }else{
-dp  <- argv[1] vqsr file table (must be compressed) 
+dp  <- argv[1] #vqsr file table (must be compressed) 
 }
 dp <- paste("zcat", dp ,sep=" ") 
 DP <- fread(dp)

@@ -52,8 +52,9 @@ gzip "${file%.vcf.gz}".table_depth
 echo "preparing the data for R plot"                                                           
                                                                                                
 nb_ind=55 #total number of individuals sequenced                                               
+#this needs to be modified to be given as an argument
                                                                                                
-zcat "${file%.vcf.gz}".table_dept.gz  | \                                                      
+zcat "${file%.vcf.gz}".table_depth.gz  | \                                                      
     awk '{for(i=4;i<=NF;i+=2) printf("%s%s",$i,(i!=NF)?OFS:ORS)}' > DPind                      
                                                                                                
 for i in $(seq $nb_ind ) ; do                                                                  
@@ -67,5 +68,5 @@ done
                                                                                                
 cat *.DP.2 | gzip >> ALL_DEPTH.gz                                                              
 rm *.DP.2                                                                                      
-                                                                                               
+rm *.DP                                                                                               
 #here run Rscript                                                                              
