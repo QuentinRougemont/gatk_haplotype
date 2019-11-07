@@ -69,4 +69,4 @@ gatk --java-options "-Xmx57G" \
     -all-sites true \
     --heterozygosity 0.0015 \
     --indel-heterozygosity 0.001 \
-    -O "$FILE_PATH"/"$OUTFOLDER"/GVCFall.vcf.gz \
+    -O "$FILE_PATH"/"$OUTFOLDER"/GVCFall.vcf.gz 

@@ -72,4 +72,4 @@ gatk --java-options "-Xmx57G" \
     -ERC GVCF \
     --heterozygosity 0.0015 \
     --indel-heterozygosity 0.001 \
-    -O "$FILE_PATH"/"$OUTFOLDER"/"${name%.no_overlap.bam}".g.vcf.gz \
+    -O "$FILE_PATH"/"$OUTFOLDER"/"${name%.no_overlap.bam}".g.vcf.gz 
