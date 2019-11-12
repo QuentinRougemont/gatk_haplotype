@@ -118,5 +118,6 @@ gatk --java-options "-Xmx57G" \
     -V 10-gatk_GVCF/HI.3444.006.Index_14.Capilano_River_2_1.no_overlap.bam.vcf.gz \
     -V 10-gatk_GVCF/HI.3444.007.Index_16.Capilano_River_3_1.no_overlap.bam.vcf.gz \
     -V 10-gatk_GVCF/HI.3444.008.Index_4.Capilano_River_4_1.no_overlap.bam.vcf.gz \
-    --convert-to-base-pair-resolution \
     -O "$FILE_PATH"/"$OUTFOLDER"/combinedGVCF.vcf.gz 
+    #--convert-to-base-pair-resolution \
+
