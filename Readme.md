@@ -25,6 +25,8 @@ all software should be linked into your bashrc or in your bin, they are all open
 
 ## To do:
 
+ADD also BCFtools scripts and samtools 
+
 **FILL THIS README**  
 
 **MAJOR STEPS:** 
