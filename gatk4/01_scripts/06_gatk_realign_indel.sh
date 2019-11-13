@@ -12,7 +12,11 @@
 # Move to directory where job was submitted
 cd $SLURM_SUBMIT_DIR
 
-#script to realign indel
+#########################################################
+#AUTHOR Q. Rougemont
+#DATE : June 2019
+#Purpose: script to realign indel
+#########################################################
 
 bam=$1
 if [ $# -eq 0 ]

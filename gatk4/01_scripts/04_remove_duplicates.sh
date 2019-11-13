@@ -30,7 +30,6 @@ fi
 
 # Global variables
 MARKDUPS="/prg/picard-tools/1.119/MarkDuplicates.jar"
-#ALIGNEDFOLDER="06_aligned/"
 DEDUPFOLDER="07_deduplicated"
 METRICSFOLDER="99_metrics"
 

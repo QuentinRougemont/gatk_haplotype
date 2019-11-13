@@ -64,7 +64,7 @@ fi
 echo "############# Running GATK ###########"
 echo "Running haplotypcaller for file $name "
 
-gatk --java-options "-Xmx57G" \
+gatk --java-options "-Xmx7G" \
     HaplotypeCaller \
     -R "$REF" \
     --native-pair-hmm-threads 8\
