@@ -18,6 +18,11 @@ cd $SLURM_SUBMIT_DIR
 #Purpose: script to realign indel
 #########################################################
 
+###### SCRIPT NO LONGER NEEDED IN GATK4 #################
+
+
+
+
 bam=$1
 if [ $# -eq 0 ]
 then
