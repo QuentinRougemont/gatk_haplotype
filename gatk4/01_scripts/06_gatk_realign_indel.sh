@@ -31,7 +31,7 @@ REALIGNFOLDER="09_realigned"
 #create folders:
 if [ ! -d "$REALIGNFOLDER" ]
 then
-    mkdir "$DEDUPFOLDER"
+    mkdir "$REALIGNFOLDER"
 fi
 
 GENOMEFOLDER="03_genome"
@@ -63,7 +63,7 @@ cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 for file in "$bam"
 do
     java -jar $GATK \
-        -T IndelRealigner \
+         IndelRealigner \
         -R "$GENOMEFOLDER"/"$GENOME" \
         -I "$file" \
         -targetIntervals "${file%.bam}".intervals \
