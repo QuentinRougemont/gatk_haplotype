@@ -16,12 +16,6 @@
 #DATE: June 2019
 #Purpose: Script to filter indel
 ########################################################
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="99-log_files"
-SCRIPT=$0
-NAME=$(basename $0)
-cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
-
 #Global variables
 file=14-indel_GVCF/GVCFall_INDEL.vcf.gz #~$1 #name of the vcf indel file 
 if [ -z "$file" ]

@@ -24,16 +24,6 @@
 
 #Global variables
 #ceate folder:
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="100_log_files"
-if [ ! -d "$LOG_FOLDER" ]
-then
-    mkdir "$LOG_FOLDER"
-fi
-SCRIPT=$0
-NAME=$(basename $0)
-cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
-
 OUTFOLDER="14-indel_GVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 

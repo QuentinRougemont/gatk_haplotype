@@ -9,7 +9,6 @@
 #SBATCH --mem=08G
 # Move to directory where job was submitted
 cd $SLURM_SUBMIT_DIR
-
 #########################################################
 #AUTHOR: Q. Rougemont
 #Last update: 28-05-2019
@@ -18,23 +17,12 @@ cd $SLURM_SUBMIT_DIR
 #INPUT:   1 fasta file (reference genome)
 #OUTPUT : 1 vcf file with SNPs only (for all individuals) 
 ########################################################
-
 #load module (on beluga only)
 #module load java
 #module load gatk/4.1.0.0
 
 #Global variables
 #ceate folder:
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="100_log_files"
-if [ ! -d "$LOG_FOLDER" ]
-then
-    mkdir "$LOG_FOLDER"
-fi
-SCRIPT=$0
-NAME=$(basename $0)
-cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
-
 OUTFOLDER="13-snp_GVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
@@ -61,7 +49,6 @@ fi
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
 echo "# extracting SNPs from whole vcf.gz #"
-
 gatk --java-options "-Xmx57G" \
     SelectVariants \
     -R "$REF" \

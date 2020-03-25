@@ -33,15 +33,6 @@ then
 fi
 
 name=$(basename $file)
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="100-log_files"
-if [ ! -d "$LOG_FOLDER" ]
-then
-    mkdir "$LOG_FOLDER"
-fi
-SCRIPT=$0
-NAME=$(basename $0)
-cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 OUTFOLDER="10-gatk_GVCF" 
 if [ ! -d "$OUTFOLDER" ]
@@ -52,7 +43,6 @@ fi
 
 #path to the local dir
 FILE_PATH=$(pwd)
-
 #PATH TO ref genome:
 REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
 if [ -z $REF ];
