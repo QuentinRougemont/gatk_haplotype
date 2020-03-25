@@ -8,24 +8,15 @@
 #SBATCH --mail-user=YOUREMAIL
 #SBATCH --time=07-00:00
 #SBATCH --mem=10G
-
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
-
+cd $SLURM_SUBMIT_DIR
 #########################################################
 #AUTOHR: Q. Rougemont
-#Last UPDATE: 10-05-2019
+#Last UPDATE: 23-03-2020
 #Purpose: Script to filter the complete genome gatkv4.0.9
 #INPUT: 1 whole gvcffile
 #OUTPUT : 1 whole gvcfile with bad sites flagged.
 ########################################################
-
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="99-log_files"
-SCRIPT=$0
-NAME=$(basename $0)
-cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
-
 #Global variables
 file=12-genoGVCF/GVCFall.vcf.gz #~$1 #name of the bam file 
 if [ -z "$file" ]
@@ -33,7 +24,6 @@ then
     echo "Error: need vcf "
     exit
 fi
-
 name=$(basename $file)
 
 OUTFOLDER="16-wgs_filter"
@@ -45,7 +35,6 @@ fi
 
 #path to the local dir
 FILE_PATH=$(pwd)
-
 #PATH TO ref genome:
 REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
 if [ -z $REF ];
@@ -53,15 +42,18 @@ then
     echo "error please provide reference fasta"
     exit
 fi
-
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
 echo "filtering whole genome file  $name    "
-
-gatk --java-options "-Xmx57G" \
+gatk --java-options "-Xmx10G" \
     VariantFiltration \
     -R "$REF" \
     -O "$OUTFOLDER"/"${name%.vcf.gz}".filter.vcf.gz \
     -V "$FILE_PATH"/"$file" \
-    --filter-expression "QUAL < 0 || MQ < 30.00 || SOR > 4.000 || QD < 2.00 || FS > 60.000 || MQRankSum < -20.000 || ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000" \
-    --filter-name "FAILED" 
+    --filter-name "FAILED_QUAL" --filter-expression "QUAL < 0" \
+    --filter-name "FAILED_SOR"  --filter-expression "SOR > 4.000"\
+    --filter-name "FAILED_MQ"   --filter-expression "MQ < 30.00" \
+    --filter-name "FAILED_QD"   --filter-expression "QD < 2.00" \
+    --filter-name "FAILED_FS"   --filter-expression "FS > 60.000" \
+    --filter-name "FAILED_MQRS" --filter-expression "MQRankSum < -20.000" \
+    --filter-name "FAILED_RPR"  --filter-expression "ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000"
