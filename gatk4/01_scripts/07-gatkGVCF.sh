@@ -19,7 +19,8 @@
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file per individual
 ########################################################
-
+#load module on mantiou:
+module load java/jdk/1.8.0_102 
 #load module (on beluga only)
 #module load java
 #module load gatk/4.1.0.0
