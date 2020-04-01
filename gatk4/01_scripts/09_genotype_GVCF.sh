@@ -19,23 +19,12 @@
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file 
 ########################################################
-
 #load module (on beluga only)
 #module load java
 #module load gatk/4.1.0.0
 
 #Global variables
 #creating folder:
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="100-log_files"
-if [ ! -d "$LOG_FOLDER" ]
-then
-    mkdir "$LOG_FOLDER"
-fi
-SCRIPT=$0
-NAME=$(basename $0)
-cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
-
 OUTFOLDER="12-genoGVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 

@@ -17,11 +17,9 @@
 #INPUT: 1 vcf file
 #OUTPUT : table of DEPTH
 ########################################################
-
 #load module (on beluga only)
 #module load java
 #module load gatk/4.1.0.0
-
 #Global variables
 #Global variables
 file=$1 #input vcf.gz file  #either SNP, indel or WGS vcf file
