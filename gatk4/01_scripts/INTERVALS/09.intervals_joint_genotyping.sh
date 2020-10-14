@@ -17,16 +17,16 @@ else
 fi
 
 VCF=$(basename $vcf)
-pop=coho #${VCF%.combinedGVCF.vcf.gz}
+pop=${VCF%.combinedGVCF.vcf.gz}
 #exit
 #GLOBAL VARIABLE FOR WRITING THE SCRIPT
 DATAFOLDER=$(pwd)
 
 GENOMEFOLDER=${DATAFOLDER}/"03_genome"
-GENOME="GCF_002021735.2_Okis_V2_genomic.fna"
+GENOME="genome.fasta"
 REF="$GENOMEFOLDER"/"$GENOME"
 INFOLDER="11-CombineGVCF" 
-OUTFOLDER="12-genoGVCF"
+OUTFOLDER="12-genoGVCF_2"
 mkdir $OUTFOLDER 2>/dev/null
 
 # tmp dir
@@ -35,23 +35,21 @@ mkdir tmp_vcf_${pop}_${assemblyname}
 
 # create intervals
 #script python from Thibault Leroy
-python ./01_scripts/INTERVALS/script_scaff_length.py $assembly > ./tmp_vcf_${pop}_${assemblyname}/$assemblyname.scaffsize
-python ./01_scripts/INTERVALS/createintervalsfromscaffsize.py ./tmp_vcf_${pop}_${assemblyname}/$assemblyname.scaffsize $intervals
+python ./01_scripts/katak_scripts/INTERVALS/script_scaff_length.py $assembly > ./tmp_vcf_${pop}_${assemblyname}/$assemblyname.scaffsize
+python ./01_scripts/katak_scripts/INTERVALS/createintervalsfromscaffsize.py ./tmp_vcf_${pop}_${assemblyname}/$assemblyname.scaffsize $intervals
 mv scatter*.intervals ./tmp_vcf_${pop}_${assemblyname}/
 cd ./tmp_vcf_${pop}_${assemblyname}/
 
 for i in scatter*.intervals; do
     echo "#!/bin/bash" > lanceur_interval.$i.sh
-    echo "#PBS -A ihv-653-aa" >> lanceur_interval.$i.sh
-    echo "#PBS -N gatk #__LIST__" >> lanceur_interval.$i.sh
-    echo "#PBS -l walltime=48:00:00" >> lanceur_interval.$i.sh
-    echo "#PBS -l nodes=1:ppn=8" >> lanceur_interval.$i.sh
-    echo "#PBS -r n" >> lanceur_interval.$i.sh
+    echo "#SBATCH -J \"GenotypeIntervals\"" >> lanceur_interval.$i.sh
+    echo "#SBATCH -o log_%j" >> lanceur_interval.$i.sh
+    echo "#SBATCH -c 1" >> lanceur_interval.$i.sh
+    echo "#SBATCH -p medium" >> lanceur_interval.$i.sh
+    echo "#SBATCH --time=02-00:00" >> lanceur_interval.$i.sh
+    echo "SBATCH --mem=10G">> lanceur_interval.$i.sh
     echo "# Move to job submission directory" >> lanceur_interval.$i.sh
-    echo "cd \$PBS_O_WORKDIR" >> lanceur_interval.$i.sh
-    echo "source /clumeq/bin/enable_cc_cvmfs" >> lanceur_interval.$i.sh
-    echo "module load gatk/4.1.2.0" >> lanceur_interval.$i.sh
-    echo "# Move to job submission directory" >> lanceur_interval.$i.sh
+    echo "cd \$SLURM_SUBMIT_DIR" >> lanceur_interval.$i.sh
     echo "gatk --java-options "-Xmx7G" GenotypeGVCFs -R $REF \\">> lanceur_interval.$i.sh 
     echo "    -O $DATAFOLDER/$OUTFOLDER/$i.${pop}_joint_bwa_mem_mdup_raw.vcf.gz \\" >> lanceur_interval.$i.sh
     echo "    -V $DATAFOLDER/$INFOLDER/$VCF \\">> lanceur_interval.$i.sh 
