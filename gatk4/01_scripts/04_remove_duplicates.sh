@@ -45,16 +45,9 @@ then
 fi
 
 # Copy script to log folder
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-SCRIPT=$0
-NAME=$(basename $0)
-LOG_FOLDER="100_log_files"
-if [ ! -d "$LOG_FOLDER" ]
-then
-    mkdir "$LOG_FOLDER"
-fi
-
-cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
+#TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
+#SCRIPT=$0
+#NAME=$(basename $0)
 
 # Load needed modules
 module load java/jdk/1.8.0_102
@@ -62,7 +55,6 @@ module load java/jdk/1.8.0_102
 # Remove duplicates from bam alignments
 for file in "$bam"
 do
-#   java -jar "$MARKDUPS" \
     java -Xmx30g -Djava.io.tmpdir=./tmp -jar "$MARKDUPS" \
         INPUT="$file" \
         OUTPUT="$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam \
