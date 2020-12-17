@@ -14,7 +14,7 @@ else
         echo "pop=$list_pop"
 fi
 mkdir 14-list_variants_files
-ls -v 12-genoGVCF_2/*vcf.gz > 14-list_variants_files/${pop}.variant_files.list 
+ls -v 10-genoGVCF_2/*vcf.gz > 14-list_variants_files/${pop}.variant_files.list 
 #GLOBAL VARIABLE FOR WRITING THE SCRIPT
 DATAFOLDER="/rap/ihv-653-ab/quentin/14.epic4"
 LISTFOLDER="14-list_variants_files" 

@@ -54,4 +54,3 @@ zcat "${file%.vcf.gz}".table_depth.gz  | \
     awk '{for(i=4;i<=NF;i+=2) printf("%s%s",$i,(i!=NF)?OFS:ORS)}' > DPind
 gzip DPind
 
-exit
