@@ -7,9 +7,8 @@
 #SBATCH --mail-user=YOUREMAIL
 #SBATCH --time=06-00:00
 #SBATCH --mem=20G
-
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #AUTOHR: Q. Rougemont
@@ -35,14 +34,13 @@ fi
 
 name=$(basename $file)
 
-OUTFOLDER="10-gatk_GVCF" 
+OUTFOLDER="09-gatk_GVCF" 
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
     mkdir "$OUTFOLDER"
 fi
 
-#path to the local dir
 FILE_PATH=$(pwd)
 #PATH TO ref genome:
 REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
@@ -54,7 +52,6 @@ fi
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
 echo "Running haplotypcaller for file $name "
-
 gatk --java-options "-Xmx7G" \
     HaplotypeCaller \
     -R "$REF" \

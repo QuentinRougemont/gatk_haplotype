@@ -22,13 +22,13 @@
 
 #load module (on beluga only)
 #module load java
-#module load gatk/4.1.0.0
+#module load gatk/4.1.2.0
 
 #in terminal: create a list of GVCF to copy in the gatk command:
-#for i in $(ls 10-gatk_GVCF/*gz ) ; do echo -e "\t -V" $i \\ ; done  > list_vcf
+#example: for i in $(ls 09-gatk_GVCF/*gz ) ; do echo -e "\t -V" $i \\ ; done  > list_vcf
 
 #creating folder:
-OUTFOLDER="11-CombineGVCF" 
+OUTFOLDER="10-CombineGVCF" 
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -46,7 +46,6 @@ then
 fi
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
-echo "#        combining whole gvcf.gz     #"
 
 gatk --java-options "-Xmx57G" \
     CombineGVCFs \
