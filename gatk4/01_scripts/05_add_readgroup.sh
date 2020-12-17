@@ -28,7 +28,7 @@ then
 fi
 
 name=$(basename $file)
-
+name2=$(echo ${name%_1.dedup.bam} )
 #Load picard:
 picar="/home/qurou/software/picard_tools/picard.jar"
 
@@ -44,7 +44,7 @@ java -jar "$picar" AddOrReplaceReadGroups \
      RGLB=lib1 \
      RGPL=illumina \
      RGPU=barcode\
-     RGSM="$name"\
+     RGSM="$name2"\
      #VALIDATION_STRINGENCY=LENIENT
 
 samtools index "$OUTFOLDER"/"$name"  
