@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J "bwamem_chinook"
+#SBATCH -J "bwamem"
 #SBATCH -o log_%j
 #SBATCH -c 4
 #SBATCH -p medium
@@ -8,9 +8,8 @@
 #SBATCH --mail-user=YOUREMAIL
 #SBATCH --time=05-00:00
 #SBATCH --mem=10G
-
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 
 #PURPOSE: performs Paired-End alignment of fastq files on reference genome
 #INPUT: fastq file, Ref genome
@@ -18,7 +17,7 @@
 
 # Global variables
 fastq=$1
-NCPU=$2 
+NCPU=$2  #generally use 4CPUs
 
 if [ $# -eq 0 ]
 then
@@ -30,10 +29,13 @@ GENOMEFOLDER="03_genome"
 GENOME="your_reference_genome.fasta"
 RAWDATAFOLDER="05_trimmed"
 ALIGNEDFOLDER="06_aligned"
-NCPU=$1
+
+if [ ! -d "$ALIGNEDFOLDER" ]; 
+then
+   mkdir "$ALIGNEDFOLDER"
+fi
 
 #verify that genome folder contains the genome:
-#test if folder exists:
 if [ -z "$(ls -A 03_genome/)" ]; then
    echo "Error Empty folder"
    echo "The folder 03_genome should contain the fasta ref"
@@ -66,7 +68,7 @@ do
 
     # Align reads
     bwa mem -t "$NCPU" -R "$ID" "$GENOMEFOLDER"/"$GENOME" "$RAWDATAFOLDER"/"$name" "$RAWDATAFOLDER"/"$name2" |
-    samtools view -Sb -q 10 - > "$ALIGNEDFOLDER"/"${name%.fastq.gz}".bam
+    samtools view -Sb -q 20 - > "$ALIGNEDFOLDER"/"${name%.fastq.gz}".bam
 
     # Sort
     samtools sort --threads "$NCPU" "$ALIGNEDFOLDER"/"${name%.fastq.gz}".bam \

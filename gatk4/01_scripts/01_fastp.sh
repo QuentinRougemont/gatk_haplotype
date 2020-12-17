@@ -19,6 +19,7 @@ if [ -z "$(ls -A 04_raw_data/)" ]; then
    exit
 fi
 
+mkdir -p 05_trimmed/01_reports
 # trim input files in 04_raw_data with fastp
 
 # Iterate over files in data folder
@@ -28,7 +29,8 @@ do
     output_file=$(basename "$input_file")
     echo "Treating: $output_file"
 
-    fastp -w 6 \
+    fastp -w 8 \
+        --detect_adapter_for_pe \
         -i "$input_file"_R1.fastq.gz \
         -I "$input_file"_R2.fastq.gz \
         -o 05_trimmed/"$output_file"_1.trimmed.fastq.gz \
