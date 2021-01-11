@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #########################################################
 #AUTOHR: Q. Rougemont
 #Last UPDATE: 10-01-2021
@@ -29,7 +28,7 @@ fi
 file_path=$(pwd)
 
 ## GENOME
-REF="$file_path/03_genome/GCF_002021735.2_Okis_V2_genomic.fna"
+REF="$file_path/03_genome/yourfasta.fna"
 
 ## GATK
 ################## run gatk ########################################
