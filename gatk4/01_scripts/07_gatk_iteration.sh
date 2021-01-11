@@ -1,5 +1,15 @@
 #!/bin/bash
 
+
+#########################################################
+#AUTOHR: Q. Rougemont
+#Last UPDATE: 10-01-2021
+#Purpose: Script to Run HaplotypeCaller from gatkv4. or later
+#INPUT: 1 bam file per individual
+#INPUT: fasta file (reference genome)
+#OUTPUT : 1 vcf file per individual and chr
+########################################################
+
 ## GLOBAL VARIABLE
 id=$[ $1  ]
 intervals=chr_"$id".intervals 

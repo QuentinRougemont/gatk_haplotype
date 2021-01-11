@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATCH -J "job_name"
 #SBATCH -o log_%j
@@ -10,7 +9,7 @@
 #SBATCH --mem=16G
 
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #last update: 28-05-2019
@@ -19,8 +18,6 @@
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file for all individuals
 ########################################################
-
-#load module (on beluga only)
 #module load java
 #module load gatk/4.1.2.0
 
@@ -105,5 +102,4 @@ gatk --java-options "-Xmx57G" \
     -V 10-gatk_GVCF/HI.3444.007.Index_16.Capilano_River_3_1.no_overlap.bam.vcf.gz \
     -V 10-gatk_GVCF/HI.3444.008.Index_4.Capilano_River_4_1.no_overlap.bam.vcf.gz \
     -O "$FILE_PATH"/"$OUTFOLDER"/combinedGVCF.vcf.gz 
-    #--convert-to-base-pair-resolution \
 

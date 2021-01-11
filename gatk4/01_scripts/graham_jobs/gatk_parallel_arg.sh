@@ -21,4 +21,4 @@ NCPUS=32
 listintervals=$1 #interval.list 
 file=$2          #individual bam file to work on  
 
-cat $listintervals |parallel -j $NCPUS ./gatk_iteration.sh {} $file 
+cat $listintervals |parallel -j $NCPUS ./07_gatk_iteration.sh {} $file 
