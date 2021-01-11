@@ -18,11 +18,6 @@ cd $SLURM_SUBMIT_DIR
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file per individual
 ########################################################
-#load module on mantiou:
-module load java/jdk/1.8.0_102 
-#load module (on beluga only)
-#module load java
-#module load gatk/4.1.0.0
 
 #Global variables
 file=$1 #name of the bam file 
@@ -33,7 +28,6 @@ then
 fi
 
 name=$(basename $file)
-
 OUTFOLDER="09-gatk_GVCF" 
 if [ ! -d "$OUTFOLDER" ]
 then 
@@ -60,4 +54,4 @@ gatk --java-options "-Xmx7G" \
     -ERC GVCF \
     --heterozygosity 0.0015 \
     --indel-heterozygosity 0.001 \
-    -O "$FILE_PATH"/"$OUTFOLDER"/"${name%.no_overlap.bam}".g.vcf.gz 
+    -O "$FILE_PATH"/"$OUTFOLDER"/"${name%.bam}".g.vcf.gz 
