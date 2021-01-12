@@ -31,8 +31,8 @@ fi
 gatk --java-options "-Xmx10G" \
     VariantFiltration \
     -R "$REF" \
-    -O "$OUTFOLDER"/"$vcfgeno \
-    -V "$FILE_PATH"/"$inputvcf" \
+    -O "$OUTFOLDER"/"$outputvcf \
+    -V "$FILE_PATH"/"$vcfgeno" \
     --filter-name "FAILED_QUAL" --filter-expression "QUAL < 0" \
     --filter-name "FAILED_SOR"  --filter-expression "SOR > 4.000"\
     --filter-name "FAILED_MQ"   --filter-expression "MQ < 30.00" \
@@ -40,4 +40,3 @@ gatk --java-options "-Xmx10G" \
     --filter-name "FAILED_FS"   --filter-expression "FS > 60.000" \
     --filter-name "FAILED_MQRS" --filter-expression "MQRankSum < -20.000" \
     --filter-name "FAILED_RPR"  --filter-expression "ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000"
-
