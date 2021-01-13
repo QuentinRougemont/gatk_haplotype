@@ -11,7 +11,7 @@
 #SBATCH --mem=40G
 
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #AUTHOR Q. Rougemont
@@ -30,13 +30,15 @@ fi
 name=$(basename $file)
 name2=$(echo ${name%_1.dedup.bam} )
 #Load picard:
-picar="/home/qurou/software/picard_tools/picard.jar"
+picar="/path/to/software/picard_tools/picard.jar"
 
 OUTFOLDER="08_cleaned_bam"
 if [ ! -d $OUTFOLDER ]
 then
     mkdir $OUTFOLDER
 fi
+
+echo "add Read Group for file : $name"
 
 java -jar "$picar" AddOrReplaceReadGroups \
      I="$file"  \
@@ -47,4 +49,5 @@ java -jar "$picar" AddOrReplaceReadGroups \
      RGSM="$name2"\
      #VALIDATION_STRINGENCY=LENIENT
 
+echo "now indexing"
 samtools index "$OUTFOLDER"/"$name"  
