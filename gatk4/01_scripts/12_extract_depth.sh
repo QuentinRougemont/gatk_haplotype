@@ -34,7 +34,7 @@ name=$(basename $file)
 
 #path to the local dir
 FILE_PATH=$(pwd)
-mkdir DEPTH 2&>>/dev/null
+mkdir DEPTH 2>/dev/null
 ################## run gatk ########################################
 gatk --java-options "-Xmx57G" \
     VariantsToTable \
