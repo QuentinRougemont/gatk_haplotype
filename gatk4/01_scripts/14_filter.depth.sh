@@ -20,11 +20,6 @@
 #OUTPUT : 1 vcf file with lowdepth flagged
 ########################################################
 
-TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
-LOG_FOLDER="99-log_files"
-SCRIPT=$0
-NAME=$(basename $0)
-
 #Global variables
 file=$1 #name of the vcf file 
 if [ -z "$file" ]

@@ -18,9 +18,14 @@
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file with Indels only (for all individuals) 
 ########################################################
-#load module (on beluga only)
-#module load java
-#module load gatk/4.1.0.0
+
+#Global variables
+gvcfall=$1     #vcf file from joint genotyping
+if [ -z $gvcfall ];
+then
+    echo "error no input vcf provided"
+    exit
+fi
 
 #Global variables
 #ceate folder:
@@ -41,17 +46,10 @@ then
     exit
 fi
 
-gvcfall="$FILE_PATH/12-genoGVCF/GVCFall.vcf.gz"
-if [ -z $gvcfall ];
-then
-    echo "error no input vcf provided"
-    exit
-fi
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
 echo "# extracting indel from whole vcf.gz #"
-
-gatk --java-options "-Xmx57G" \
+gatk --java-options "-Xmx7G" \
     SelectVariants \
     -R "$REF" \
     -V  "$gvcfall" \

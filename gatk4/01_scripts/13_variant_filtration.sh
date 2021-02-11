@@ -18,7 +18,7 @@ cd $SLURM_SUBMIT_DIR
 #OUTPUT : 1 whole gvcfile with bad sites flagged.
 ########################################################
 #Global variables
-file=11-genoGVCF/GVCFall.vcf.gz #~$1 #name of the bam file 
+file=$1  #name of the vcf file obtained following joint genotyping (GenotypeGVCFs) 
 if [ -z "$file" ]
 then
     echo "Error: need vcf "
