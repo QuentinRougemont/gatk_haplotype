@@ -34,23 +34,22 @@ name=$(basename $file)
 
 #path to the local dir
 FILE_PATH=$(pwd)
-
+mkdir DEPTH 2&>>/dev/null
 ################## run gatk ########################################
 gatk --java-options "-Xmx57G" \
     VariantsToTable \
     -V "$file" \
     -F CHROM -F POS -GF GT -GF DP \
-    -O "${file%.vcf.gz}".table_depth  
+    -O DEPTH/"${name%.vcf.gz}".table_depth  
 
 echo "computing depth is done"
 
 ################## Reshape data #####################################    
-echo "compressing $file.table_depth now"
-gzip "${file%.vcf.gz}".table_depth
+cd DEPTH
+echo "preparing the data for R plot"
+awk '{for(i=4;i<=NF;i+=2)
+     printf("%s%s",$i,(i!=NF)?OFS:ORS)}' "${name%.vcf.gz}".table_depth > DPind."$name"
 
-echo "preparing the data for R plot"                                     
-
-zcat "${file%.vcf.gz}".table_depth.gz  | \ 
-    awk '{for(i=4;i<=NF;i+=2) printf("%s%s",$i,(i!=NF)?OFS:ORS)}' > DPind
-gzip DPind
-
+echo "compressing $name.table_depth now"
+gzip DPind."$name"
+gzip "${name%.vcf.gz}".table_depth

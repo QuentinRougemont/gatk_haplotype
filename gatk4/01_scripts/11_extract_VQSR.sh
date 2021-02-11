@@ -32,6 +32,7 @@ fi
 
 name=$(basename $file)
 
+mksir QUAL 2&>>/dev/null
 #path to the local dir
 FILE_PATH=$(pwd)
 
@@ -40,6 +41,6 @@ gatk --java-options "-Xmx57G" \
     VariantsToTable \
     -V "$file" \
     -F CHROM -F POS -F ID  -F REF -F ALT -F QUAL -F QD -F DP -F MQ -F MQRankSum -F FS -F ReadPosRankSum -F SOR \
-    -O "$FILE_PATH"/"${name%.vcf.gz}".table  \
+    -O "$FILE_PATH"/QUAL/"${name%.vcf.gz}".table  \
 
-gzip "$FILE_PATH"/"${name%.vcf.gz}".table  \
+gzip "$FILE_PATH"/QUAL/"${name%.vcf.gz}".table  \
