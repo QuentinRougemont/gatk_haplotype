@@ -40,10 +40,13 @@ p6 <- ggplot(VCF, aes(x=ReadPosRankSum)) +
     geom_density(alpha=.3) 
 p7 <- ggplot(VCF, aes(x=SOR)) +
     geom_density(alpha=.3) 
-pdf("quality_score.pdf",15,10)
+
+input=strsplit(basename(argv), ".table.gz")[[1]]
+
+pdf(paste0("quality_score",input,".pdf"), 15,10)
 theme_set(theme_cowplot())
 plot_grid(p0, p1, p2, p3, p4, p5, p6, p7, 
     nrow = 4,
-    labels = c('DP', 'QD','FS','MQ','MQRankSum', 'SOR','ReadPosRankSum'), 
+    labels = c('QUAL', 'DP', 'QD','MQ','MQRankSum','FS','ReadPosRankSum','SOR'),
     label_size = 12)
 dev.off()
