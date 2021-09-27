@@ -1,8 +1,9 @@
 
 # GATK4
 
- * scripts for gatk4.1 do not work with the v3 since the syntax has been changed  
- * One additional step is required that was not present in V3, the scripts `01_scripts/12_CombineGVCF.sh` implements the "CombineGVCF" option not required in the v3  
+ * scripts for gatk. tested on v4.1.0 v4.1.2.0 v4.1.9.0 and v4.2.2.0 do not work with the v3 since the syntax has been changed  
+ * One additional step is required that was not present in V3, the scripts `01_scripts/12_CombineGVCF.sh` implements the "CombineGVCF" option not required in the v3 
+ * Alternatively to CombineGVCF you can use genomicDBImport which is really faster 
 
 ## PURPOSE: Pipeline For read mapping and SNP calling with GATK 
 
