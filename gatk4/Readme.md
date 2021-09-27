@@ -49,11 +49,27 @@
 	* Simply use **picard** tools :  
           script to use is: `01-scripts/03_remove_duplicates.sh` 
 
- * _5 realign indels_  
-	* use `01-scripts/05_realign_indel.sh`
+ * _4 add ReadGroup_  
+	* script to use is: `01-scripts/04_add_readgroup.sh` this is usefull to have sample name that will be used in the vcf file from gatk for each sample
 
- * _6 generate vcf with haplotype caller_ 
-	* use the different **gatk** scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`
+ * _6 generate gvcf with HaplotypeCaller, create a database or combine the vcf and  perform the joint genotyping_* 
+	* use the different **gatk** scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`  
+
+    ***TWO OPTIONS***
+
+    with few CPUs use : 
+	* `06_gatk_haplotype_caller_single_GVCF.sh` to generate gvcf file for each individuals   
+        * `08_CombineGVCF.sh` to combine all individuals together 
+        * `09_genotype_GVCF.sh` genotype vcf to perform the joint genotyping
+
+    with many CPUs use parallel to parellize every operation by splitting the genome in intervals (e.g. chromosome)
+       For instance on a slurm architecture use the script located in:
+        `computecanada_jobs`
+         to: * generate gvcf with HaplotypeCaller in chunks for each individuals
+             * create the database with genomicDBImport in parallel
+             * perform the joint genotyping for each intervals 
+      
+             
 
 	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
 	It is important for some statistics to keep all data including all invariants or low frequency allele  
