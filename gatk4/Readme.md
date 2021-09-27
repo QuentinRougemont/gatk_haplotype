@@ -10,4 +10,6 @@
  * The `03_genome` should contain your reference genome  
  * The `04_raw_data` must contain your raw fastq sequencing data  
  * Other folder will be created when running the pipeline 
- 
+
+ *  Different approaches are implemented either using single thread or in parallel by chromosomes
+ *  In general using genomicDBImport seems faster than combineGVCF
