@@ -18,6 +18,8 @@ cd $SLURM_SUBMIT_DIR
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file per individual
 ########################################################
+#use this to process a single individual withouth splitting
+#good if you have only few threads available
 
 #Global variables
 file=$1 #name of the bam file 

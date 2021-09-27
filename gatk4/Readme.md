@@ -35,15 +35,19 @@
 **MAJOR STEPS:** 
 
  * _1 Trimming_
-	* Use **fastp** 
-          script to use:
-              `01-scripts/01_fastp.sh` 
+	* Use **fastp**   
+          script to usei is `01-scripts/01_fastp.sh` 
 
  * _2 Align_
-	* Use **bwa mem**, **samtools** to filter, sort and index (`01-scripts/02_bwa_mem_align_reads_PE.sh`) 
+	* Use **bwa mem**, **samtools** to filter, sort and index :  
+          script to use is: `01-scripts/02_bwa_mem_align_reads_PE.sh` 
+		default parameters should work.  
+		For samtools important parameter is the -q to only include reads with a mapping quality >= INT (20 or 30 is a good value)
+
 
  * _3 remove duplicate_
-	* Simply use **picard** tools (`01-scripts/03_rm_dup_and_index_sh` )
+	* Simply use **picard** tools :  
+          script to use is: `01-scripts/03_remove_duplicates.sh` 
 
  * _5 realign indels_  
 	* use `01-scripts/05_realign_indel.sh`
