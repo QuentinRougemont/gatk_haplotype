@@ -16,5 +16,7 @@ NCPUS=32
 
 input=$1 #either alist of vcf splitted by intervals or a list of chromosome  or a list of intervals
 
+echo "filter gvcf based on GATK on $input file"
+
 cat $input |\
     parallel -j $NCPUS ./01_scripts/14_filter_iteration.sh {} #input
