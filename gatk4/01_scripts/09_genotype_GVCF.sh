@@ -9,7 +9,7 @@
 #SBATCH --mem=18G
 
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #AUTHOR: Q. Rougemont
@@ -19,7 +19,6 @@
 #INPUT: fasta file (reference genome)
 #OUTPUT : 1 vcf file 
 ########################################################
-#load module (on beluga only)
 #module load java
 #module load gatk/4.1.0.0
 
@@ -35,12 +34,6 @@ fi
 FILE_PATH=$(pwd)
 
 #PATH TO ref genome:
-REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
-if [ -z $REF ];
-then
-    echo "error please provide reference fasta"
-    exit
-fi
 gvcfcomb="$FILE_PATH/11-CombineGVCF/combinedGVCF.vcf.gz"
 if [ -z $gvcfcomb ];
 then
@@ -53,7 +46,6 @@ echo "#     genotyping whole gvcf.gz       #"
 
 gatk --java-options "-Xmx57G" \
     GenotypeGVCFs \
-    -R "$REF" \
     -V "$gvcfcomb" \
     -all-sites true \
     --heterozygosity 0.0015 \

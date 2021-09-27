@@ -22,8 +22,6 @@ then
 fi
 
 FILE_PATH=$(pwd)
-#PATH TO ref genome:
-REF="$FILE_PATH/03_genome/yourfasta.fna"
 
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
@@ -31,7 +29,6 @@ echo "#     genotyping whole gvcf.gz       #"
 
 gatk --java-options "-Xmx8G" \
     GenotypeGVCFs \
-    -R "$REF" \
     -V "$vcfcomb" \
     -all-sites true \
     --heterozygosity 0.0015 \

@@ -34,19 +34,11 @@ fi
 
 FILE_PATH=$(pwd)
 
-#PATH TO ref genome:
-REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
-if [ -z $REF ];
-then
-    echo "error please provide reference fasta"
-    exit
-fi
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
 
 gatk --java-options "-Xmx57G" \
     CombineGVCFs \
-    -R "$REF" \
     -V 10-gatk_GVCF/HI.3087.007.Index_9.IC-A-2013_1.no_overlap.bam.vcf.gz \
     -V 10-gatk_GVCF/HI.3087.008.Index_8.IC-B-2013_1.vcf.gz \
     -V 10-gatk_GVCF/HI.3134.003.Index_10.IC-1-2013_1.vcf.gz \
