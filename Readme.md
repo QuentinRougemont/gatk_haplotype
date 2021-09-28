@@ -23,9 +23,7 @@ Alternatively for mapping:
 
 all software should be linked into your bashrc or in your bin, they are all open source
 
-## To do:
-
-ADD also BCFtools scripts and samtools 
+## MORE DETAILS in gatk4/Readme
 
 **FILL THIS README**  
 

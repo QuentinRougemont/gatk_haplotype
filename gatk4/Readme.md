@@ -38,28 +38,28 @@ for filtration:
 
 **MAJOR STEPS:** 
 
- * _1 Trimming_
+ * **_1 Trimming_**
 	* Use **fastp**   
           script to use is `01-scripts/01_fastp.sh` 
 
- * _2 Align_
+ * **_2 Align_**
 	* Use **bwa mem**, **samtools** to filter, sort and index :  
           script to use is: `01-scripts/02_bwa_mem_align_reads_PE.sh` 
 		default parameters should work.  
 		For samtools important parameter is the -q to only include reads with a mapping quality >= INT (20 or 30 is a good value)
 
 
- * _3 remove duplicate_
+ * **_3 remove duplicate_**
 	* Simply use **picard** tools :  
           script to use is: `01-scripts/03_remove_duplicates.sh` 
 
- * _4 add ReadGroup_  
+ * **_4 add ReadGroup_**  
 	* script to use is: `01-scripts/04_add_readgroup.sh` this is usefull to have sample name that will be used in the vcf file from gatk for each sample
 
- * _6 generate gvcf with HaplotypeCaller, create a database or combine the vcf and  perform the joint genotyping_* 
+ * **_5 generate gvcf with HaplotypeCaller_**, create a database or combine the vcf and  perform the joint genotyping* 
 	* use the different **gatk** scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`  
 
-    ***TWO OPTIONS***
+    ***TWO OPTIONS:***
 
     with few CPUs use : 
 	* `06_gatk_haplotype_caller_single_GVCF.sh` to generate gvcf file for each individuals   
@@ -73,11 +73,11 @@ for filtration:
 		* create the database with genomicDBImport in parallel: scripts `08_DBImport_parallel.sh` OR combine the individuals vcfs with `08_combine_paralle.sh` but slower  
 		* perform the joint genotyping for each intervals : 09_genotype_from_DBImport_parallel.sh OR: 09_genotype_from_CombineGVCF_parallel.sh   
       
-	* _7 extract SNPs and INDELS_ 
+	* **_6 extract SNPs and INDELS_**
        * Simply use : `01-scripts/11_snp_selection.sh` and `01-scripts/12_indel_selection.sh`
          these have to be filtered based on quality score!
 
-	* _8 filtrer SNPs, Indels and Whole Genome file_  
+	* **_7 filtrer SNPs, Indels and Whole Genome file_** 
 		* extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
       then plot the scores in R [with this script](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/gatk4/01_scripts/Rscripts/plot_VQSR.R) 
       
@@ -100,7 +100,7 @@ for filtration:
 	Invariants can then be set to 'N' in some applications   
 	Some selection tests will be best performed with minor allele frequency thresholds 
 
-  * _8b faster filtration with bcftools:_ 
+  * _8 faster filtration with bcftools:_ 
 
     ### example 
 	a command I've used several time on imperfect vcf to exclude/keep individuals, filter based on DP and GQ and keep polymorphic sites:  
