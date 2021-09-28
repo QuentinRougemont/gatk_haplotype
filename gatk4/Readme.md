@@ -13,8 +13,12 @@
 
 **picard** tools avaible [here](https://broadinstitute.github.io/picard/)
 
-**Samtools** software available [here](http://www.htslib.org/)
+**Samtools** software available [here](http://www.htslib.org/)  
 
+you may need **[htslib](http://www.htslib.org/download/)**  
+
+for filtration:
+**bcftools** software available [here](http://www.htslib.org/download/) 
 
 
 # GATK4
@@ -98,4 +102,11 @@
 
   * _8b faster filtration with bcftools:_ 
 
-
+    ### example 
+	a command I've used several time on imperfect vcf to exclude/keep individuals, filter based on DP and GQ and keep polymorphic sites
+	VCF=$1
+        wanted=$2 #list of wanted individuals:
+        bcftools view -S $wanted -O u $VCF |\
+		bcftools filter -e 'FORMAT/DP <5 | FORMAT/GQ < 30' --set-GTs . -O u  |\
+        	bcftools view -U -i 'TYPE=="snp" & MAC >= 1' -Oz -o ${VCF%.vcf.gz}.DP5.GQ30.vcf.gz
+bcftools index -c numata.DP5.GQ30.vcf.gz
