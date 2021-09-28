@@ -73,12 +73,12 @@ for filtration:
 		* create the database with genomicDBImport in parallel: scripts `08_DBImport_parallel.sh` OR combine the individuals vcfs with `08_combine_paralle.sh` but slower  
 		* perform the joint genotyping for each intervals : 09_genotype_from_DBImport_parallel.sh OR: 09_genotype_from_CombineGVCF_parallel.sh   
       
-	* **_6 extract SNPs and INDELS_**
+ * **_6 extract SNPs and INDELS_**
        * Simply use : `01-scripts/11_snp_selection.sh` and `01-scripts/12_indel_selection.sh`
          these have to be filtered based on quality score!
 
-	* **_7 filtrer SNPs, Indels and Whole Genome file_** 
-		* extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
+ * **_7 filtrer SNPs, Indels and Whole Genome file_** 
+	* extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
       then plot the scores in R [with this script](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/gatk4/01_scripts/Rscripts/plot_VQSR.R) 
       
       you can obtain this sort of plot: 
@@ -95,12 +95,12 @@ for filtration:
 			* set failed site to nocall `01_scripts/19_wgs_to_nocall.sh` 
 
 
-	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
+	In general I call all SNPs, indels and invariants sites and then create separate quality filtered file.   
 	It is important for some statistics to keep all data including all invariants or low frequency allele  
 	Invariants can then be set to 'N' in some applications   
 	Some selection tests will be best performed with minor allele frequency thresholds 
 
-  * _8 faster filtration with bcftools:_ 
+  * **_8 faster filtration with bcftools:_**
 
     ### example 
 	a command I've used several time on imperfect vcf to exclude/keep individuals, filter based on DP and GQ and keep polymorphic sites:  
