@@ -78,7 +78,7 @@
       then plot the scores in R [with this script](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/gatk4/01_scripts/Rscripts/plot_VQSR.R) 
       
       you can obtain this sort of plot: 
-      ![example_graph](https://github.com/QuentinRougemont/gatk_haplotype/blob/main/pictures/example.png)  
+      ![example_graph](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/pictures/example.png)  
 
 		* then filter the SNPs, INDELs and WGS file that do not pass the quality metrics using e.g. :  
 			* For SNPs: `01_scripts/14_variant_filtration_SNP.sh`  
