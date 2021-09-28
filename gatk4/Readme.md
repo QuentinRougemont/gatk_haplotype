@@ -84,7 +84,11 @@
 			* For SNPs: `01_scripts/14_variant_filtration_SNP.sh`  
 			* For INDELs: `01_scripts/15_variant_filtration_INDEL.sh`  
 			* For WGS: `01_scripts/17_wgs_filtration.sh`  
-		* Then it is good to also look at the depth and mark as "no call (./.)" sites that have a too low depth  
+		* Then it is good to also look at the depth and mark as "no call (./.)" sites that have a too low depth :  
+			* extract the depth `16_extract_depth.sh`  
+			* plot the depth `01_scripts/Rscripts/plot_depth_gatk.R`  
+			* filter `01_scripts/18.filter_depth.sh`
+			* set failed site to nocall `01_scripts/19_wgs_to_nocall.sh` 
 
 
 	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
