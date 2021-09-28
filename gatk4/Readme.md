@@ -36,7 +36,7 @@
 
  * _1 Trimming_
 	* Use **fastp**   
-          script to usei is `01-scripts/01_fastp.sh` 
+          script to use is `01-scripts/01_fastp.sh` 
 
  * _2 Align_
 	* Use **bwa mem**, **samtools** to filter, sort and index :  
@@ -69,16 +69,29 @@
 		* create the database with genomicDBImport in parallel: scripts `08_DBImport_parallel.sh` OR combine the individuals vcfs with `08_combine_paralle.sh` but slower  
 		* perform the joint genotyping for each intervals : 09_genotype_from_DBImport_parallel.sh OR: 09_genotype_from_CombineGVCF_parallel.sh   
       
-  * _7 extract SNPs and INDELS_ 
+	* _7 extract SNPs and INDELS_ 
        * Simply use : `01-scripts/11_snp_selection.sh` and `01-scripts/12_indel_selection.sh`
          these have to be filtered based on quality score!
 
-  * _8 filtrer SNPs, Indels and Whole Genome file_
-      * extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
+	* _8 filtrer SNPs, Indels and Whole Genome file_  
+		* extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
       then plot the scores in R [with this script](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/gatk4/01_scripts/Rscripts/plot_VQSR.R) 
+      
+      you can obtain this sort of plot: 
+      ![example_graph](https://github.com/QuentinRougemont/gatk_haplotype/blob/main/pictures/example.png)  
+
+		* then filter the SNPs, INDELs and WGS file that do not pass the quality metrics using e.g. :  
+			* For SNPs: `01_scripts/14_variant_filtration_SNP.sh`  
+			* For INDELs: `01_scripts/15_variant_filtration_INDEL.sh`  
+			* For WGS: `01_scripts/17_wgs_filtration.sh`  
+		* Then it is good to also look at the depth and mark as "no call (./.)" sites that have a too low depth  
+
 
 	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
 	It is important for some statistics to keep all data including all invariants or low frequency allele  
 	Invariants can then be set to 'N' in some applications   
 	Some selection tests will be best performed with minor allele frequency thresholds 
+
+  * _8b faster filtration with bcftools:_ 
+
 
