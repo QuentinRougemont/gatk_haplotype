@@ -32,7 +32,7 @@ fi
 
 name=$(basename $file)
 
-mksir QUAL 2>/dev/null
+mkdir QUAL 2>/dev/null
 #path to the local dir
 FILE_PATH=$(pwd)
 

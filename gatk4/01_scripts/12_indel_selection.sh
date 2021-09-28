@@ -38,20 +38,11 @@ fi
 
 FILE_PATH=$(pwd)
 
-REF="$FILE_PATH/03_genome/your_ref_genome.fasta"
-
-if [ -z $REF ];
-then
-    echo "error please provide reference fasta"
-    exit
-fi
-
 ################## run gatk ########################################
 echo "############# Running GATK ###########"
 echo "# extracting indel from whole vcf.gz #"
 gatk --java-options "-Xmx7G" \
     SelectVariants \
-    -R "$REF" \
     -V  "$gvcfall" \
     --select-type-to-include INDEL\
     -O "$FILE_PATH"/"$OUTFOLDER"/GVCFall_INDEL.vcf.gz 
