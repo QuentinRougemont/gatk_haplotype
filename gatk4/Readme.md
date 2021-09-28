@@ -104,7 +104,8 @@ for filtration:
 
     ### example 
 	a command I've used several time on imperfect vcf to exclude/keep individuals, filter based on DP and GQ and keep polymorphic sites:  
-		```VCF=$1  
+		```
+		VCF=$1  
 		wanted=$2 #list of wanted individuals:  
 		bcftools view -S $wanted -O u $VCF |\
 		bcftools filter -e 'FORMAT/DP <5 | FORMAT/GQ < 30' --set-GTs . -O u  |\ 
