@@ -69,9 +69,13 @@
 		* create the database with genomicDBImport in parallel: scripts `08_DBImport_parallel.sh` OR combine the individuals vcfs with `08_combine_paralle.sh` but slower  
 		* perform the joint genotyping for each intervals : 09_genotype_from_DBImport_parallel.sh OR: 09_genotype_from_CombineGVCF_parallel.sh   
       
-     
-   Finally quality plot can be made after extract the score with `11_extract_VQSR.sh`  
-   these can be plotted in R [with this script](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/gatk4/01_scripts/Rscripts/plot_VQSR.R) 
+  * _7 extract SNPs and INDELS_ 
+       * Simply use : `01-scripts/11_snp_selection.sh` and `01-scripts/12_indel_selection.sh`
+         these have to be filtered based on quality score!
+
+  * _8 filtrer SNPs, Indels and Whole Genome file_
+      * extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
+      then plot the scores in R [with this script](https://github.com/QuentinRougemont/gatk_haplotype/blob/master/gatk4/01_scripts/Rscripts/plot_VQSR.R) 
 
 	In general I call all SNP, indel and invariants and then create separate quality filtered file.   
 	It is important for some statistics to keep all data including all invariants or low frequency allele  
