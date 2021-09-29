@@ -27,9 +27,10 @@ for filtration:
  * use genomicDBImport which is really faster than CombineGVCF 
 
 ## PURPOSE: Pipeline For read mapping and SNP calling with GATK 
-
- * The `03_genome` should contain your reference genome  
- * The `04_raw_data` must contain your raw fastq sequencing data  
+  
+ * The `02_info` folder is used to store various metadata such as population name, coordinates, years of sampling, and intervals for splitting
+ * The `03_genome` folder should contain your reference genome  
+ * The `04_raw_data` folder must contain your raw fastq sequencing data  
  * Other folder will be created when running the pipeline 
 
  *  Different approaches are implemented either using single thread or in parallel by chromosomes
@@ -42,11 +43,12 @@ for filtration:
           script to use is `01-scripts/01_fastp.sh` 
 
  * **_2 Align_**
-	* Use **bwa mem**, **samtools** to filter, sort and index :  
+	* Use **bwa mem**, **samtools** to align, filter, sort and index :  
           script to use is: `01-scripts/02_bwa_mem_align_reads_PE.sh` 
 		default parameters should work.  
 		For samtools important parameter is the -q to only include reads with a mapping quality >= INT (20 or 30 is a good value)
-
+		It is good to extract statistics; for instance using `samtools-stats`
+	
 
  * **_3 remove duplicate_**
 	* Simply use **picard** tools :  
