@@ -13,17 +13,17 @@
 #cd $SLURM_SUBMIT_DIR
 
 #test if folder exists:
-if [ -z "$(ls -A 04_raw_data/)" ]; then
+if [ -z "$(ls -A 04_raw/)" ]; then
    echo "Error Empty folder"
    echo "Raw fastq should be stored here"
    exit
 fi
 
 mkdir -p 05_trimmed/01_reports
-# trim input files in 04_raw_data with fastp
+# trim input files in 04_raw with fastp
 
 # Iterate over files in data folder
-for file in $(ls -1 04_raw_data/*_R1.fastq.gz)
+for file in $(ls -1 04_raw/*_R1.fastq.gz)
 do
     input_file=$(echo "$file" | perl -pe 's/_R1.fastq.gz//')
     output_file=$(basename "$input_file")

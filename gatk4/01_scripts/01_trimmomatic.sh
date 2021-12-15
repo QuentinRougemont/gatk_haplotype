@@ -7,7 +7,7 @@
 #########################################################
 
 #test if folder exists:
-if [ -z "$(ls -A 04_raw_data/)" ]; then
+if [ -z "$(ls -A 04_raw/)" ]; then
    echo "Error Empty folder"
    echo "Raw fastq should be stored here"
    exit
@@ -21,7 +21,7 @@ fi
 trimo=/home/qurou/software/Trimmomatic-0.39/trimmomatic-0.39.jar 
 module load java
 #on fastq by subfolder "file1" and runs all in parallel
-for file in $(ls -1 04_raw_data/file1/*_R1.fastq.gz)
+for file in $(ls -1 04_raw/*_R1.fastq.gz)
 do
     input_file=$(echo "$file" | perl -pe 's/_R1.fastq.gz//')
     output_file=$(basename "$input_file")
