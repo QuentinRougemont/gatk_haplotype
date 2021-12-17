@@ -38,7 +38,7 @@ fi
 
 echo "add Read Group for file : $name"
 
-java -jar picard.jar -Xmx8g AddOrReplaceReadGroups \
+java -Xmx8g -jar picard.jar AddOrReplaceReadGroups \
      I="$file"  \
      O="$OUTFOLDER"/"$name"  \
      RGLB=lib1 \

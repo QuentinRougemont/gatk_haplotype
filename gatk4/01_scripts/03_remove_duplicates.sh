@@ -48,7 +48,7 @@ fi
 for file in "$bam"
 do
     echo "remove duplicate for file: $bam "
-    java -Djava.io.tmpdir=./tmp -jar picard.jar  -Xmx8g MarkDuplicates  \
+    java -Xmx8g -Djava.io.tmpdir=./tmp -jar picard.jar MarkDuplicates  \
         -INPUT "$file" \
         -OUTPUT "$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam \
         -METRICS_FILE "$METRICSFOLDER"/metrics.txt \
