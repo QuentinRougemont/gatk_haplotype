@@ -11,7 +11,6 @@
 
 # Move to directory where job was submitted
 cd $SLURM_SUBMIT_DIR
-
 #########################################################
 #AUTHOR Q. Rougemont
 #DATE : June 2019
@@ -19,7 +18,6 @@ cd $SLURM_SUBMIT_DIR
 #INPUT: bam file
 #OUTPUT: bam file with duplicated marks
 #########################################################
-
 ### load module here if needed ##
 #make sur to have picard.jar locally or in your bashrc
 
@@ -50,7 +48,7 @@ fi
 for file in "$bam"
 do
     echo "remove duplicate for file: $bam "
-    java -Djava.io.tmpdir=./tmp -jar picard.jar  MarkDuplicates  \
+    java -Djava.io.tmpdir=./tmp -jar picard.jar  -Xmx8g MarkDuplicates  \
         -INPUT "$file" \
         -OUTPUT "$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam \
         -METRICS_FILE "$METRICSFOLDER"/metrics.txt \
