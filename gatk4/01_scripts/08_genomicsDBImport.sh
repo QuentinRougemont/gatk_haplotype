@@ -7,13 +7,13 @@ echo "id is : $id"
 
 FILE_PATH=$(pwd)
 
-rm -rf database."$intervals" 2>dev/null
+rm -rf database."$intervals" 2>/dev/null
 
 gatk --java-options "-Xmx20g -Xms20g" \
       GenomicsDBImport \
       --batch-size 40 \
       --genomicsdb-workspace-path database."$intervals" \
-      --tmp-dir tmp \
+      --tmp-dir ${SLURM_TMPDIR} \
       -L "$FILE_PATH"/INTERVAL/$intervals \
       --sample-name-map MAP/sample_map."$id" \
       --reader-threads 10 

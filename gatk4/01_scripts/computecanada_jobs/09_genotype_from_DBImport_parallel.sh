@@ -5,19 +5,19 @@
 #SBATCH --output=gatk-%J.out
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=80
+##SBATCH --cpus-per-task=80
+#SBATCH --array=1-30
 
 # Move to directory where job was submitted
 cd $SLURM_SUBMIT_DIR
 
+#set the array size according to the number of intervals!
 
-NCPUS=80
+listintervals=$1 #interval list (here one id per chromosome but this can be any sort of intervals matchin gatk requirements ) 
 
-listintervals=$1 #interval.list 
-echo "runnung joint genotyping in genomics_DB_import input in parallel mode for $listintervals"
+echo "running joint genotyping in genomics_DB_import input in parallel mode for $listintervals"
 
-#load module if necessary
-#module load gnu-parallel/20191122
-#module load java/1.8.0_201
+wanted=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $listintervals )
 
-cat $listintervals |parallel -j $NCPUS ./01_scripts/09_genotypeGVCF_DBImport.sh {}
+./01_scripts/09_genotypeGVCF_DBImport.sh $wanted
+
