@@ -2,7 +2,7 @@
 
 #########################################################
 #AUTOHR: Q. Rougemont
-#Last UPDATE: 10-01-2021
+#Last UPDATE: 18-03-2022
 #Purpose: Script to filter whole vcf from gatkv4 or later
 #INPUT: 1 vcf file from genotype vcf
 #OUTPUT : 1 filtered vcf file per chromosome
@@ -11,15 +11,21 @@
 #you should first plot the quality of your data and set the filter expression accordingly!
 # /!\ WARNING /!\ #
 
-vcfgeno=$1
+id=$[ $1  ]
+intervals=chr_"$id".intervals
+database=database."$intervals"  #database name
+
+vcfgeno=12-genoGVCF/${intervals}.vcf.gz
+
 vcf=$(basename $vcfgeno )
 echo vcf is : $vcf
-outputvcf=$( echo $vcf |sed 's/genotype/filtered/g') 
-echo output vcf will $outputvcf 
+outputvcf=${vcf%.vcf.gz}.filtered.vcf.gz
+#outputvcf=$( echo $vcf |sed 's/genotype/filtered/g') 
+#echo output vcf will $outputvcf 
 
 FILE_PATH=$(pwd)
 #PATH TO ref genome:
-REF="$FILE_PATH/03_genome/youtfasta.fna"
+REF="$FILE_PATH/03_genome/your_fasta.fna"
 
 OUTFOLDER="14-wgs_filter"
 if [ ! -d "$OUTFOLDER" ]
