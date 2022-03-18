@@ -65,12 +65,17 @@ for filtration:
 	*  Array-job to process everything in parallel by contig/chromosome 
 	*  For instance on a slurm architecture use the script located in: `computecanada_jobs` to:  
 	
-		* generate gvcf with HaplotypeCaller in chunks for each individuals with script: `01_scripts/computecanada_jobs/07_gatk_Haplotype_Caller_parallel_arg.sh`  
+		* generate gvcf with HaplotypeCaller in chunks for each individuals with script: 
+		 `01_scripts/computecanada_jobs/07_gatk_Haplotype_Caller_parallel_arg.sh`  
 
-		* create the database with genomicDBImport in parallel with script `01_scripts/computecanada_jobs/08_DBImport_parallel.sh` 
+		* create the database with genomicDBImport in parallel with script:
+		`01_scripts/computecanada_jobs/08_DBImport_parallel.sh` 
 		
 		* perform the joint genotyping for each intervals with script: `01_scripts/computecanada_jobs/09_genotype_from_DBImport_parallel.sh`  
       
+ * **_facultative step: merge all interval vcf_**  with script: `01_scripts/10.merge.sh`
+ 	alternatively, all step below can be done for each scaffold/chromosome separately and the merging can be done at the last step.
+ 
  * **_6 extract SNPs and INDELS_**  
  
        * Simply use : `01-scripts/11_snp_selection.sh` and `01-scripts/12_indel_selection.sh`
