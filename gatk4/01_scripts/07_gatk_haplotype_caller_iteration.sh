@@ -18,7 +18,7 @@ echo "file is $file"
 name=$(basename $file)
 
 ## FICHIER
-OUTFOLDER="10-gatk_parallel"
+OUTFOLDER="09-gatk_parallel"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -31,6 +31,7 @@ file_path=$(pwd)
 REF="$file_path/03_genome/yourfasta.fna"
 
 ## GATK
+## set heterozygosity for indel and snp according to your species characteristics
 ################## run gatk ########################################
 echo "Running GATK for file $name "
 gatk  \

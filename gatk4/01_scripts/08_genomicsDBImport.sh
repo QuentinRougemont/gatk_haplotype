@@ -11,7 +11,7 @@ rm -rf database."$intervals" 2>/dev/null
 
 gatk --java-options "-Xmx20g -Xms20g" \
       GenomicsDBImport \
-      --batch-size 40 \
+      --batch-size 80 \
       --genomicsdb-workspace-path database."$intervals" \
       --tmp-dir ${SLURM_TMPDIR} \
       -L "$FILE_PATH"/INTERVAL/$intervals \

@@ -28,7 +28,7 @@ then
 fi
 #
 #ceate folder:
-OUTFOLDER="13-snp_GVCF"
+OUTFOLDER="12-snp_VCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"

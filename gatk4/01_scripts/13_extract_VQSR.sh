@@ -2,13 +2,12 @@
 #SBATCH -J "VQSR"
 #SBATCH -o log_%j
 #SBATCH -c 1
-#SBATCH -p medium
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=YOUREMAIL
 #SBATCH --time=06-00:00
 #SBATCH --mem=08G
 # Move to directory where job was submitted
-#cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 
 #########################################################
 #Author: Q. Rougemont
@@ -32,7 +31,7 @@ fi
 
 name=$(basename $file)
 
-mkdir QUAL 2>/dev/null
+mkdir 14-VQSR 2>/dev/null
 #path to the local dir
 FILE_PATH=$(pwd)
 
@@ -41,6 +40,6 @@ gatk --java-options "-Xmx57G" \
     VariantsToTable \
     -V "$file" \
     -F CHROM -F POS -F ID  -F REF -F ALT -F QUAL -F QD -F DP -F MQ -F MQRankSum -F FS -F ReadPosRankSum -F SOR \
-    -O "$FILE_PATH"/QUAL/"${name%.vcf.gz}".table  \
+    -O "$FILE_PATH"/14-VQSR/"${name%.vcf.gz}".table  \
 
-gzip "$FILE_PATH"/QUAL/"${name%.vcf.gz}".table  \
+gzip "$FILE_PATH"/14-VQSR/"${name%.vcf.gz}".table  \

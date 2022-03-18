@@ -12,7 +12,7 @@ id=$[ $1  ]
 intervals=chr_"$id".intervals
 database=database."$intervals"  #database name
 
-OUTFOLDER="12-genoGVCF"
+OUTFOLDER="10-genoGVCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -32,6 +32,6 @@ gatk --java-options "-Xmx8g" GenotypeGVCFs \
    -O $OUTFOLDER/$intervals.vcf.gz \
    -L "$FILE_PATH"/INTERVAL/$intervals \
    --all-sites true \
-   --heterozygosity 0.0015 \
+   --heterozygosity 0.015 \
    --indel-heterozygosity 0.001 \
    --tmp-dir ${SLURM_TMPDIR}

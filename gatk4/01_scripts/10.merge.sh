@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J "def-blouis"
+#SBATCH -J "your_account"
 #SBATCH --time=00:50:00
 #SBATCH --job-name=log_java
 #SBATCH --output=ldhat-%J.out
@@ -14,11 +14,11 @@
 cd $SLURM_SUBMIT_DIR
 module load picard/2.20.6
 
-input=$1 #a list of variant file to be merged
+input=$1  #a list of variant file to be merged
 output=$2 #basename of the output
 
 #creating folder:
-OUTFOLDER="10-unplacedVCF" 
+OUTFOLDER="11-merged" 
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
@@ -31,4 +31,4 @@ echo "############# Running GATK ###########"
 java -jar  $EBROOTPICARD/picard.jar \
   MergeVcfs\
   I=$input \
-  O="$OUTFOLDER"/"$output".g.vcf.gz
+  O="$OUTFOLDER"/"$output".vcf.gz

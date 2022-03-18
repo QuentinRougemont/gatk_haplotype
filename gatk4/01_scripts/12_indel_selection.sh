@@ -29,7 +29,7 @@ fi
 
 #Global variables
 #ceate folder:
-OUTFOLDER="14-indel_GVCF"
+OUTFOLDER="13-indel_VCF"
 if [ ! -d "$OUTFOLDER" ]
 then 
     echo "creating out-dir"
