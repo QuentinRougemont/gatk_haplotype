@@ -57,22 +57,25 @@ for filtration:
  * **_4 add ReadGroup_**  
 	* script to use is: `01-scripts/04_add_readgroup.sh` this is usefull to have sample name that will be used in the vcf file from gatk for each sample
 
- * **_5 generate gvcf with HaplotypeCaller_**, create a database or combine the vcf and  perform the joint genotyping* 
+ * **_5 generate gvcf with HaplotypeCaller_**, create a database or combine the vcf and  perform the joint genotyping 
 	* use the different **gatk** scripts from `01-scripts/07_gatk_GVCF.sh` to `01-scripts/15_depth_filter.sh`  
 
-    **with many CPUs use :**
+    **with many CPUs use :** 
+    
 	*  Array-job to process everything in parallel by contig/chromosome 
 	*  For instance on a slurm architecture use the script located in: `computecanada_jobs` to:  
 	
-		* generate gvcf with HaplotypeCaller in chunks for each individuals with script: `01_scripts/computecanada_jobs07_gatk_Haplotype_Caller_parallel_arg.sh`  
+		* generate gvcf with HaplotypeCaller in chunks for each individuals with script: `01_scripts/computecanada_jobs/07_gatk_Haplotype_Caller_parallel_arg.sh`  
 
 		* create the database with genomicDBImport in parallel with script `01_scripts/computecanada_jobs/08_DBImport_parallel.sh` 
 		
 		* perform the joint genotyping for each intervals with script: `01_scripts/computecanada_jobs/09_genotype_from_DBImport_parallel.sh`  
       
- * **_6 extract SNPs and INDELS_**
+ * **_6 extract SNPs and INDELS_**  
+ 
        * Simply use : `01-scripts/11_snp_selection.sh` and `01-scripts/12_indel_selection.sh`
-         these have to be filtered based on quality score!
+        
+	/!\ these have to be filtered based on quality score!
 
  * **_7 filtrer SNPs, Indels and Whole Genome file_** 
 	* extract VQSR for SNPs and INDELs with `01-scripts/13_extract_VQSR.sh`  
