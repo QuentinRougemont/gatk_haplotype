@@ -19,7 +19,4 @@ wanted=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $listintervals )
 
 echo "filter gvcf based on GATK on $input file"
 
-./01_scripts/14_filter_iteration.sh $listintervals
-
-#cat $input |\
-#    parallel -j $NCPUS ./01_scripts/14_filter_iteration.sh {} #input
+./01_scripts/14_filter_iteration.sh $wanted
