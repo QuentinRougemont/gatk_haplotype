@@ -11,10 +11,7 @@
 #you should first plot the quality of your data and set the filter expression accordingly!
 # /!\ WARNING /!\ #
 
-id=$[ $1  ]
-intervals=chr_"$id".intervals
-database=database."$intervals"  #database name
-
+intervals=$1
 vcfgeno=12-genoGVCF/${intervals}.vcf.gz
 
 vcf=$(basename $vcfgeno )
@@ -24,8 +21,6 @@ outputvcf=${vcf%.vcf.gz}.filtered.vcf.gz
 #echo output vcf will $outputvcf 
 
 FILE_PATH=$(pwd)
-#PATH TO ref genome:
-REF="$FILE_PATH/03_genome/your_fasta.fna"
 
 OUTFOLDER="14-wgs_filter"
 if [ ! -d "$OUTFOLDER" ]
@@ -36,8 +31,7 @@ fi
 
 gatk --java-options "-Xmx10G" \
     VariantFiltration \
-    -R "$REF" \
-    -O "$OUTFOLDER"/"$outputvcf \
+    -O "$OUTFOLDER"/"$outputvcf" \
     -V "$FILE_PATH"/"$vcfgeno" \
     --filter-name "FAILED_QUAL" --filter-expression "QUAL < 0" \
     --filter-name "FAILED_SOR"  --filter-expression "SOR > 4.000"\
@@ -45,4 +39,4 @@ gatk --java-options "-Xmx10G" \
     --filter-name "FAILED_QD"   --filter-expression "QD < 2.00" \
     --filter-name "FAILED_FS"   --filter-expression "FS > 60.000" \
     --filter-name "FAILED_MQRS" --filter-expression "MQRankSum < -20.000" \
-    --filter-name "FAILED_RPR"  --filter-expression "ReadPosRankSum < -10.000 || ReadPosRankSum > 10.000"
+    --filter-name "FAILED_RPR"  --filter-expression "ReadPosRankSum < -10.000"
