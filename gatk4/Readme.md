@@ -113,6 +113,6 @@ for filtration:
 	VCF=$1
 	wanted=$2 #list of wanted individuals:
 	bcftools view -S $wanted -O u $VCF |\
-	bcftools filter -e 'FORMAT/DP <5 | FORMAT/GQ < 30' --set-GTs . -O u  |\ 
+	bcftools filter -e 'FORMAT/DP <5 | FORMAT/GQ < 30' --set-GTs . -O u  |\
 		bcftools view -U -i 'TYPE=="snp" & MAC >= 1' -Oz -o ${VCF%.vcf.gz}.DP5.GQ30.vcf.gz 
 	```
