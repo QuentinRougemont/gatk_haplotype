@@ -25,7 +25,7 @@ name2=$(basename "$file2")
 ID="@RG\tID:ind\tSM:ind\tPL:Illumina"
 
 # Align reads
-/save/qrougemont/bwa-mem2-2.0pre2_x64-linux/bwa-mem2 mem -t "$NCPU" -R "$ID" "$GENOMEFOLDER"/"$GENOME" "$RAWDATAFOLDER"/"$name" "$RAWDATAFOLDER"/"$name2" |
+bwa-mem2 mem -t "$NCPU" -R "$ID" "$GENOMEFOLDER"/"$GENOME" "$RAWDATAFOLDER"/"$name" "$RAWDATAFOLDER"/"$name2" |
 samtools view -Sb -q 20 - > "$ALIGNEDFOLDER"/"${name%.fastq.gz}".bam
 
 # Sort
@@ -56,18 +56,19 @@ if [ ! -d "$METRICSFOLDER" ]
 then
     mkdir "$METRICSFOLDER"
 fi
-mkdir tmp
+mkdir tmp 2>/dev/null
 # Remove duplicates from bam alignments
 
 for file in "$bam"
 do
     echo "remove duplicate for file: $bam "
-    java -Xmx8g -Djava.io.tmpdir=./tmp -jar picard.jar MarkDuplicates  \
+    java -Xmx8g  -jar picard.jar MarkDuplicates  \
+        --READ_NAME_REGEX  "null"\
         -INPUT "$file" \
         -OUTPUT "$DEDUPFOLDER"/$(basename "$file" .trimmed.sorted.bam).dedup.bam \
         -METRICS_FILE "$METRICSFOLDER"/metrics.txt \
         -VALIDATION_STRINGENCY SILENT \
-        -REMOVE_DUPLICATES true  -TMP_DIR ./tmp
+        -REMOVE_DUPLICATES true # -TMP_DIR ./tmp
 done
 ######################################################
 ## add readgroup 
@@ -87,12 +88,12 @@ fi
 
 echo "add Read Group for file : $name"
 java -Xmx8g -jar picard.jar AddOrReplaceReadGroups \
-     I="$file"  \
-     O="$OUTFOLDER"/"$name"  \
-     RGLB=lib1 \
-     RGPL=illumina \
-     RGPU=barcode\
-     RGSM="$name2"\
+     I "$file"  \
+     O "$OUTFOLDER"/"$name"  \
+     RGLB lib1 \
+     RGPL illumina \
+     RGPU barcode\
+     RGSM "$name2"\
      #VALIDATION_STRINGENCY=LENIENT
 
 echo "now indexing"
